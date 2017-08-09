@@ -1,10 +1,11 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var mechanic = sequelize.define('mechanic', {
-    id_ktp: DataTypes.INTEGER,
+    id_ktp: DataTypes.STRING,
     name: DataTypes.STRING,
     address: DataTypes.STRING,
-    gender: DataTypes.STRING
+    gender: DataTypes.STRING,
+    password: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {

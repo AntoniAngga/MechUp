@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       id_ktp: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       name: {
         type: Sequelize.STRING
@@ -18,6 +18,9 @@ module.exports = {
         type: Sequelize.STRING
       },
       gender: {
+        type: Sequelize.STRING
+      },
+      password: {
         type: Sequelize.STRING
       },
       createdAt: {
