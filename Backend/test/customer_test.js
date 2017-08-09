@@ -54,7 +54,7 @@ describe('Testing Table Customer', function () {
             res.body[0].gender.should.equal("Male");
             res.body[0].email.should.equal("antoniangga14@gmail.com");
         done();
-         })
+        })
     });
 
     it("Delete Data User", (done) => {
