@@ -11,7 +11,7 @@ module.exports = {
       id_customer: {
         type: Sequelize.INTEGER
       },
-      id_motir: {
+      id_mechanic: {
         type: Sequelize.INTEGER
       },
       id_vehicle: {
