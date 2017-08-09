@@ -28,7 +28,7 @@ describe('Testing Table Customer', function () {
 
     it('Update Account dengan user yang sama', (done) => {
         chai.request(app)
-        .post(`/api/customer/${id}`)
+        .put(`/api/customer/${id}`)
         .send({
             name: "Antoniangga",
             gender: "Male",
