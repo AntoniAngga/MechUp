@@ -40,7 +40,9 @@ describe('Testing Table Customer', function () {
             res.should.have.status(200);
             res.should.have.be.a("Object");
             id = res.body.id
-            res.bodu.u
+            res.body.name.should.equal("Antoniangga");
+            res.body.gender.should.equal("Male");
+            done();
         })
     });
 
