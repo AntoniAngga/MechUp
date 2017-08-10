@@ -20,6 +20,18 @@ class SearchMontir extends Component {
      constructor(props) {
           super(props)
      }
+     static navigationOptions = {
+       title: 'Need Help',
+       headerTitleStyle: {
+         color: '#fff',
+         justifyContent: 'center',
+         alignItems: 'center',
+         fontSize: 28
+       },
+       headerStyle: {
+         backgroundColor: '#fd583d'
+       }
+     }
 
      render() {
           return (

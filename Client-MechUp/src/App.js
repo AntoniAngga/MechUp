@@ -9,9 +9,9 @@ import MontirGetOrder from './components/MontirGetOrder'
 import MontirReport from './components/MontirReport'
 
 export default App = StackNavigator ({
-     Login: { screen: Login }
-     // AddCar: { screen: AddCar }
-     // SearchMontir: { screen: SearchMontir }
-     // MontirGetOrder : { screen: MontirGetOrder }
-     // MontirReport: { screen: MontirReport }
+     Login: { screen: Login },
+     AddCar: { screen: AddCar },
+     SearchMontir: { screen: SearchMontir },
+     MontirGetOrder : { screen: MontirGetOrder },
+     MontirReport: { screen: MontirReport }
 })

@@ -14,6 +14,18 @@ import { View, Text, Image } from 'react-native'
 const PetaJakarta = require('../images/petajakarta.jpg')
 
 class MontirReport extends Component {
+     static navigationOptions = {
+       title: 'Report Montir ',
+       headerTitleStyle: {
+         color: '#fff',
+         justifyContent: 'center',
+         alignItems: 'center',
+         fontSize: 28
+       },
+       headerStyle: {
+         backgroundColor: '#fd583d'
+       }
+     }
 
      render() {
           return (

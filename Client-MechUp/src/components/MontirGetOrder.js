@@ -16,8 +16,21 @@ import { StyleSheet, ScrollView, View, Text, TextInput, Image } from 'react-nati
 import { NavigationActions } from 'react-navigation'
 
 class MontirGetOrder extends Component {
+     static navigationOptions = {
+       title: 'Need to Repair',
+       headerTitleStyle: {
+         color: '#fff',
+         justifyContent: 'center',
+         alignItems: 'center',
+         fontSize: 28
+       },
+       headerStyle: {
+         backgroundColor: '#fd583d'
+       }
+     }
 
      render() {
+          const { navigate } = this.props.navigation
           return (
                <Container>
                   <Content>
@@ -42,7 +55,7 @@ class MontirGetOrder extends Component {
                       </ListItem>
                      </List>
 
-                         <Button block success>
+                         <Button block success onPress= { () => navigate('MontirReport')}>
                                <Text> Accept </Text>
                          </Button>
                          <Button block danger>

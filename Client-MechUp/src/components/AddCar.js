@@ -19,8 +19,21 @@ class AddCar extends Component {
      constructor(props) {
           super(props)
      }
+     static navigationOptions = {
+       title: 'Car Customer',
+       headerTitleStyle: {
+         color: '#fff',
+         justifyContent: 'center',
+         alignItems: 'center',
+         fontSize: 28
+       },
+       headerStyle: {
+         backgroundColor: '#fd583d'
+       }
+     }
 
      render() {
+          const { navigate } = this.props.navigation;
           return (
                <Container>
                   <Content>
@@ -45,7 +58,7 @@ class AddCar extends Component {
                                         <Image style={{ resizeMode:"contain", flex: 1 }} source={Lamborgini}></Image>
                                    </CardItem>
                               </Card>
-                              <Button block success>
+                              <Button block success onPress={ () => navigate('SearchMontir') }>
                                     <Text>Add Car</Text>
                               </Button>
                   </Content>
