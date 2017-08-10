@@ -15,7 +15,6 @@ describe('Testing Table Orders', () => {
         .send({
             id_customer: 1,
             id_mechanic: 1,
-            id_vechicle: 1,
             status: 'accepted',
             location: 'Jl. amasdasdwqeq'
         })
