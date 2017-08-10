@@ -1,7 +1,9 @@
 const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
+const app = require('../app');
 
+chai.use(chaiHttp);
 
 describe('Testing Table Customer', function () {
   let id = "";
@@ -36,26 +38,20 @@ describe('Testing Table Customer', function () {
             email: "antoniangga14@gmail.com",
             address: "Jl. asdasdwqeqweq"
         })
-        .end( () => {
+        .end( (err,res) => {
             res.should.have.status(200);
             res.should.have.be.a("Object");
-            id = res.body.id
-            res.body.name.should.equal("Admin");
-            res.body.gender.should.equal("Male");
-            res.body.email.should.equal("antoniangga14@gmail.com");
+            res.body[0].should.equal(1);
             done();
         })
     });
 
     it("Menampikan Data User", function(done) {
         chai.request(app)
-        .get('/api/customer')
+        .get(`/api/customer/${id}`)
         .end(function(err,res) {
-            res.should.have.status(200);
-            res.should.have.be.a("Object");
-            res.body[0].name.should.equal("Antoni Angga");
-            res.body[0].gender.should.equal("Male");
-            res.body[0].email.should.equal("antoniangga14@gmail.com");
+            res.body.name.should.equal("Antoniangga");
+            res.body.email.should.equal("antoniangga14@gmail.com");
         done();
          })
     });
@@ -65,7 +61,7 @@ describe('Testing Table Customer', function () {
         .delete(`/api/customer/${id}`)
         .end((err,res) => {
             res.should.have.status(200);
-            res.body.should.equal("1 Rows Customer data deleted")
+            res.text.should.equal('1 Rows customer Deleted');
             done();
         })
     })

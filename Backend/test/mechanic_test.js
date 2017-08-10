@@ -1,11 +1,13 @@
 const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
+const app = require('../app');
 
+chai.use(chaiHttp);
 
 describe('Testing Mechanic Table', () => {
     let id = "";
-    it('Penambahan Mechanic Table 1 Rows', () => {
+    it('Penambahan Mechanic Table 1 Rows', (done) => {
         chai.request(app)
         .post('/api/mechanic/')
         .send({
@@ -21,10 +23,11 @@ describe('Testing Mechanic Table', () => {
             id = res.body.id
             res.body.name.should.equal("Andrew Senewe");
             res.body.password.should.equal("1234");
+            done();
         })
     })
 
-    it('Update Mechanic Table 1 Rows', () => {
+    it('Update Mechanic Table 1 Rows', (done) => {
         chai.request(app)
         .put(`/api/mechanic/${id}`)
         .send({
@@ -34,30 +37,33 @@ describe('Testing Mechanic Table', () => {
             gender: "Male",
             password: "1"
         })
-        .end((res,err)=>{
+        .end((err,res)=>{
             res.should.have.status(200);
-            res.body.name.should.equal("Ade");
             res.should.have.be.a("Object");
+            res.body[0].should.equal(1);
+            done();
         })
     })
 
-    it('View Mechanics Table Rows', () => {
+    it('View Mechanics Table Rows', (done) => {
         chai.request(app)
         .get(`/api/mechanic/${id}`)
-        .end((res,err) => {
+        .end((err,res) => {
             res.should.have.status(200)
             res.body.name.should.equal("Ade")
             id = res.body.id
             res.body.gender.should.equal("Male")
+            done();
         })
     })
 
-    it('Delete Mechanics Table Rows', () => {
+    it('Delete Mechanics Table Rows', (done) => {
         chai.request(app)
-        .get(`/api/mechanic/${id}`)
-        .end((res,end) => {
+        .delete(`/api/mechanic/${id}`)
+        .end((err,res) => {
             res.should.have.status(200)
-            res.body.should.equal("Mechanics 1 rows deleted")
+            res.text.should.equal("1 Rows mechanic Deleted")
+            done();
         })
     })
 });

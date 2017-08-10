@@ -19,6 +19,7 @@ module.exports = {
       password: '1234512',
       email: 'jhondoe@gmail.com',
       address: 'jl.pondok indah',
+      phone_number: '0821312312314',
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
@@ -27,6 +28,7 @@ module.exports = {
       password: '1',
       email: 'antoniangga14@gmail.com',
       address: 'jl.Sandang',
+      phone_number: '0821311312314',
       createdAt: new Date(),
       updatedAt: new Date()
     }
