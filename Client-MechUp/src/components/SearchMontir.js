@@ -29,7 +29,7 @@ class SearchMontir extends Component {
          fontSize: 28
        },
        headerStyle: {
-         backgroundColor: '#fd583d'
+         backgroundColor: '#f0a53d'
        }
      }
 
@@ -37,27 +37,49 @@ class SearchMontir extends Component {
           return (
                <Container>
                   <Content>
-                         <InputGroup borderType='rounded' >
-                           <Icon name='ios-home' style={{color:'#384850'}}/>
-                           <Input placeholder='Type your place here'/>
-                         </InputGroup>
-                              <Card>
-                                   <CardItem style={{alignItems: 'center', height: 250}}>
-                                        <Image style={{ resizeMode:"contain", flex: 1 }} source={Petajakarta}></Image>
-                                   </CardItem>
-                              </Card>
+                         <Card>
+                              <InputGroup borderType='rounded' >
+                                <Icon name='ios-home' style={{color:'#384850'}}/>
+                                <Input placeholder='Type your place here'/>
+                              </InputGroup>
+                              <CardItem style={{alignItems: 'center', height: 250}}>
+                                   <Image style={{ resizeMode:"contain", flex: 1 }} source={Petajakarta}></Image>
+                              </CardItem>
+
                               <Form>
                                 <Item>
-                                   <Input style={{ height: 150 }} placeholder="  Type your car problem here !! " />
+                                   <Input style={{ height: 100 }} placeholder="  Type your car problem here !! " />
                                 </Item>
                               </Form>
-                              <Button block success>
-                                    <Text> Search Monthree Now </Text>
+                         </Card>
+                              <Button block success style={styles.SearchMontir}>
+                                    <Text style={styles.TextStyle}> Search Monthree Now </Text>
                               </Button>
                   </Content>
                 </Container>
           )
      }
+}
+
+const styles = {
+     SearchMontir : {
+         borderWidth: 1,
+        borderRadius: 10,
+        borderColor: '#ddd',
+        borderBottomWidth: 0,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        elevation: 1,
+        marginLeft: 5,
+        marginRight: 5,
+        marginTop: 20,
+
+   },
+   TextStyle: {
+        fontSize : 22
+   }
 }
 
 export default SearchMontir

@@ -23,7 +23,7 @@ class MontirReport extends Component {
          fontSize: 28
        },
        headerStyle: {
-         backgroundColor: '#fd583d'
+         backgroundColor: '#f0a53d'
        }
      }
 
@@ -31,6 +31,7 @@ class MontirReport extends Component {
           return (
                <Container>
                   <Content>
+                   <Card>
                        <List>
                       <ListItem itemDivider>
                          <Text>Customer Name : Simon Mignolet </Text>
@@ -51,7 +52,7 @@ class MontirReport extends Component {
                          <Text>Mesin tidak bisa di stater</Text>
                       </ListItem>
                      </List>
-                     <Card>
+
                           <CardItem style={{alignItems: 'center', height: 180}}>
                                <Image style={{ resizeMode:"contain", flex: 1 }} source={PetaJakarta}></Image>
                           </CardItem>
