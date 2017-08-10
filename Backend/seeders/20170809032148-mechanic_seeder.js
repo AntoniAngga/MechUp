@@ -19,6 +19,7 @@ module.exports = {
         address: 'jl. Bintaro sektor 8',
         gender: 'Male',
         password: '1',
+        phone_number: '08121212121212',
         createdAt: new Date(),
         updatedAt: new Date()
     }])

@@ -9,7 +9,7 @@ var index = require('./routes/index');
 var customer = require('./routes/customer');
 var order = require('./routes/order');
 var mechanic = require('./routes/mechanic');
-var vechine = require('./routes/vehicle');
+var vehicle = require('./routes/vehicle');
 
 var app = express();
 
@@ -29,7 +29,7 @@ app.use('/', index);
 app.use('/api/customer', customer);
 app.use('/api/order', order);
 app.use('/api/mechanic', mechanic);
-app.use('/api/vechine', vechine);
+app.use('/api/vehicle', vehicle);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
