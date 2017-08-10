@@ -15,29 +15,35 @@ import {
 import firebase from './src/config/FirebaseConfig'
 
 import MyApp from './src/components/Maps'
+import Marker from './src/components/Marker'
+import RnDirectionsApp from './src/components/RnDirectionsApp'
+import DraggableMarkers from './src/components/DraggableMarker'
+import CostumMarkers from './src/components/CostumMarkers'
+import Example from './src/components/Example'
 
 export default class research_mode extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MyApp />
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-        <Button
-        onPress={() => this.testing()}
-        title="Check"
-        />
+        <MyApp />        
       </View>
     );
   }
+  
+  // componentDidMount() {
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       console.log(position.coords.latitude)
+  //       // this.setState({
+  //       //   latitude: position.coords.latitude,
+  //       //   longitude: position.coords.longitude,
+  //       //   error: null,
+  //       // });
+  //     },
+  //     (error) => this.setState({ error: error.message }),
+  //     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+  //   );
+  // }
 
   testing () {
     firebase.database()
