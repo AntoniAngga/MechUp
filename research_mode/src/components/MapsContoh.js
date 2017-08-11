@@ -67,9 +67,11 @@ class MyApp extends React.Component {
     }
   
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
+    console.log('sasdasd');
+    navigator.geolocation.watchPosition((position) => {
+      console.log(position.coords);
         let tes = this.state.markers.shift()
+        // this.setState({markers: tes})
         console.log(tes, 'setelah drop', this.state.markers);
         this.state.markers.push({
           coordinate: {
@@ -78,10 +80,7 @@ class MyApp extends React.Component {
           },
           key: '0'
         })
-      },
-      (error) => this.setState({ error: error.message }),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
+    })
   }
   
   onMapPress(e) {
@@ -140,13 +139,14 @@ class MyApp extends React.Component {
           style={styles.map}
           initialRegion={this.state.region}
           onRegionChange={region => this.onRegionChange(region)}
+          onPress={(e) => this.onMapPress(e)}
           
         >
           {this.state.markers.map(marker => (
             <MapView.Marker
               title={marker.key}
               key={marker.key}
-              coordinate={this.state.region}
+              coordinate={marker.coordinate}
               draggable
             />
           ))}
@@ -155,6 +155,14 @@ class MyApp extends React.Component {
               strokeWidth={2}
               strokeColor="black"/>
         </MapView>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={(origin, destination) => this.getDirectionsMaps(`${this.state.markers[0].coordinate.latitude},${this.state.markers[0].coordinate.longitude}`, `${this.state.markers[1].coordinate.latitude},${this.state.markers[1].coordinate.longitude}`)}
+            style={[styles.bubble, styles.button]}
+          >
+            <Text style={styles.buttonText}>get direction</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

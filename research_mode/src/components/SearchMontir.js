@@ -13,9 +13,11 @@ import {
 } from 'native-base'
 import { StyleSheet, ScrollView, View, Text, TextInput, Image } from 'react-native'
 import { NavigationActions } from 'react-navigation'
+import { connect } from 'react-redux'
 
 const Petajakarta = require('../images/petajakarta.jpg')
 import MyApp from './Maps'
+import { searchMontir } from '../actions'
 
 class SearchMontir extends Component {
      constructor(props) {
@@ -53,7 +55,12 @@ class SearchMontir extends Component {
                                 </Item>
                               </Form>
                          </Card>
-                              <Button block success style={styles.SearchMontir}>
+                              <Button block success style={styles.SearchMontir}
+                                onPress= {
+                                  (data) => this.props.searchMontir(data)
+                                  //muncul modal loading
+                                }
+                              >
                                     <Text style={styles.TextStyle}> Search Monthree Now </Text>
                               </Button>
                   </Content>
@@ -81,6 +88,12 @@ const styles = {
    TextStyle: {
         fontSize : 22
    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    searchMontir: (data) => dispatch(searchMontir(data))
+  }
 }
 
 export default SearchMontir
