@@ -1,9 +1,5 @@
 # Welcome To Mechanical Up(MechUp)
-
-**How to Run it**
-<br/>
-<br/>
-**Customer**
+##Customer
 | HTML   | API               | Description             |
 | :-------- | ------------------- | :------------------------- |
 | GET    | /api/customer/    | Get All data customers  |
@@ -11,9 +7,7 @@
 | POST   | /api/customer/    | Add data customer       |
 | PUT    | /api/customer/:id | Update Data customer    |
 | DELETE | /api/customer/:id | Delete data customer    |
----
-**Order**
-<br/>
+##Order
 | HTML   | API            | Description          |
 | :-------- | ---------------- | :---------------------- |
 | GET    | /api/order/    | Get All data order   |
@@ -21,9 +15,7 @@
 | POST   | /api/order/    | Add data order       |
 | PUT    | /api/order/:id | Update data order    |
 | DELETE | /api/order/:id | Delete data order    |
----
-**Vehicle**
-<br/>
+##Vehicle
 | HTML   | API              | Description            |
 | :-------- | ------------------ | :------------------------ |
 | GET    | /api/vehicle/    | Get All data vehicle   |
@@ -31,9 +23,7 @@
 | POST   | /api/vehicle/    | Add data vehicle       |
 | PUT    | /api/vehicle/:id | Update data vehicle    |
 | DELETE | /api/vehicle/:id | Delete data vehicle    |
----
-**Mechanic**
-<br/>
+##Mechanic
 | HTML   | API               | Description             |
 | :-------- | ------------------- | :------------------------- |
 | GET    | /api/mechanic/    | Get All data mechanic   |
@@ -41,5 +31,5 @@
 | POST   | /api/mechanic/    | Add data mechanic       |
 | PUT    | /api/mechanic/:id | Update data mechanic    |
 | DELETE | /api/mechanic/:id | Delete data mechanic    |
----
-## Thanks You
+
+## Thank You
