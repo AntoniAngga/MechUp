@@ -1,5 +1,3 @@
-# Welcome To Mechanical Up(MechUp)
-##Customer
 | HTML   | API               | Description             |
 | :-------- | ------------------- | :------------------------- |
 | GET    | /api/customer/    | Get All data customers  |
@@ -16,7 +14,7 @@
 | PUT    | /api/order/:id | Update data order    |
 | DELETE | /api/order/:id | Delete data order    |
 ##Vehicle
-| HTML   | API              | Description            |
+| HTML| API| Description            |
 | :-------- | ------------------ | :------------------------ |
 | GET    | /api/vehicle/    | Get All data vehicle   |
 | GET    | /api/vehicle/:id | Get data vehicle by id |
