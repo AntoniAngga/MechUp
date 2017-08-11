@@ -1,11 +1,13 @@
 const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
+const app = require('../app');
 
+chai.use(chaiHttp);
 
 describe('Testing Table Vehicle', () => {
     let id = "";
-    it('Penambahan Table Vehicle', () => {
+    it('Penambahan Table Vehicle', (done) => {
         chai.request(app)
         .post('/api/vehicle/')
         .send({
@@ -20,10 +22,11 @@ describe('Testing Table Vehicle', () => {
             res.body.type.should.equal("CX-5");
             id = res.body.id
             res.body.merek.should.equal("Mazda")
+            done()
         })
     });
 
-    it('Update Table Vehicle', () => {
+    it('Update Table Vehicle', (done) => {
         chai.request(app)
         .put(`/api/vehicle/${id}`)
         .send({
@@ -35,12 +38,12 @@ describe('Testing Table Vehicle', () => {
         .end((err,res)=> {
             res.should.have.status(200);
             res.should.have.be.a("Object");
-            res.body.type.should.equal("X-Trail");
-            res.body.merek.should.equal("Nissan");
+            res.body[0].should.equal(1);
+            done()
         })
     })
 
-    it('Read Table Vehicle', () => {
+    it('Read Table Vehicle', (done) => {
         chai.request(app)
         .get(`/api/vehicle/${id}`)
         .send({
@@ -54,16 +57,17 @@ describe('Testing Table Vehicle', () => {
             res.should.have.be.a("Object");
             res.body.type.should.equal("X-Trail");
             res.body.merek.should.equal("Nissan");
+            done()
         })
     })
 
-    it('Delete Table Vehicle', () => {
+    it('Delete Table Vehicle', (done) => {
         chai.request(app)
         .delete(`/api/vehicle/${id}`)
         .end((err,res) => {
             res.should.have.status(200);
-            res.should.have.be.a("String");
-            res.body.should.equal("1 Rows Vehicle Deleted");
+            res.text.should.equal("1 Rows vehicle Deleted");
+            done()
         })
     })
 });
