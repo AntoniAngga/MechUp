@@ -10,6 +10,7 @@ import {
 import axios from 'axios'
 import MapView, { MAP_TYPES } from 'react-native-maps';
 import Polyline from '@mapbox/polyline';
+import _ from 'lodash'
 
 const { width, height } = Dimensions.get('window');
 
@@ -17,7 +18,7 @@ const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE = -6.26004;
 const LONGITUDE = 106.77899833333335;
-const LATITUDE_DELTA = 0.0192;
+const LATITUDE_DELTA = 0.0102;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 let id = 1;
 
@@ -34,7 +35,13 @@ class MyApp extends React.Component {
         longitudeDelta: LONGITUDE_DELTA,
       },
       statusBarHeight: '',
-      markers: [],
+      markers: [{
+        coordinate: {
+          latitude: LATITUDE,
+          longitude: LONGITUDE
+        },
+        key: '0'
+      }],
       coords: []
     };
   }
@@ -61,32 +68,22 @@ class MyApp extends React.Component {
   
   componentDidMount() {
     console.log('sasdasd');
-    navigator.geolocation.getCurrentPosition((position) => {
-      const initLocation = {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      }
+    navigator.geolocation.watchPosition((position) => {
       console.log(position.coords);
-        this.setState({ region: initLocation });
-        this.setState({
-          markers: [
-            ...this.state.markers,
-            {
-              coordinate: {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude
-              },
-              key: `0`,
-            }
-          ]
-      })
+        let tes = this.state.markers.shift()
+        // this.setState({markers: tes})
+        console.log(tes, 'setelah drop', this.state.markers);
+        this.state.markers.push({
+          coordinate: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          },
+          key: '0'
+        })
     })
   }
   
   onMapPress(e) {
-    console.log(e.nativeEvent.coordinate,'asdasdas');
     this.setState({
       markers: [
         ...this.state.markers,
@@ -127,6 +124,7 @@ class MyApp extends React.Component {
   }
 
   render() {
+    console.log(this.state.markers,'asdfgasdfgd');
     return (
       <View style={styles.container}>
         <TextInput 
@@ -182,13 +180,11 @@ const styles = StyleSheet.create({
   },
   container: {
     ...StyleSheet.absoluteFillObject,
-    // justifyContent: 'flex-end',
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    height: 400,
-    width: width,
   },
   map: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFillObject
   },
   bubble: {
     backgroundColor: 'rgba(255,255,255,0.7)',
