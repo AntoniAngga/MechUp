@@ -8,6 +8,9 @@ import SearchMontir from './components/SearchMontir'
 import MontirOnline from './components/MontirOnline'
 import MontirGetOrder from './components/MontirGetOrder'
 import MontirReport from './components/MontirReport'
+import LoginForm from './components/LoginForm'
+import RegisterForm from './components/RegisterForm'
+import LoginFormMechanic from './components/LoginFormMechanic'
 
 const MainCustomer = DrawerNavigator({
      Customer: { screen: AddCar },
@@ -34,5 +37,8 @@ export default App = StackNavigator ({
      SearchMontir: { screen: SearchMontir },
      MainMontir: { screen : MainMontir },
      MontirGetOrder : { screen: MontirGetOrder },
-     MontirReport: { screen: MontirReport }
+     MontirReport: { screen: MontirReport },
+     LoginForm: {screen: LoginForm },
+     LoginFormMechanic: {screen: LoginFormMechanic },
+     RegisterForm: {screen: RegisterForm }
 })

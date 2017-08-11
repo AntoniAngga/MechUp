@@ -46,7 +46,7 @@ const getCostumerFromDB = (id) => {
 export const addCar = data => {
   alert('dalem dispatch')
   return (dispatch) => {  
-    axios.post(`http://localhost:3000/api/vehicle`, data)
+    axios.post(`http://10.0.2.2:3000/api/vehicle`, data)
     .then( data => {
       alert('bisa')
       return data;
