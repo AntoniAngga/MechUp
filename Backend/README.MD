@@ -3,15 +3,16 @@
 **How to Run it**
 <br/>
 <br/>
-**Customer**
-| HTML   | API               | Description             |
+### Customer
+
+Dillinger is currently extended with the following plugins. Instructions on how to use them in your own application are linked below
+| HTML | API | Description |
 |--------|-------------------|-------------------------|
-| GET    | /api/customer/    | Get All data customers  |
-| GET    | /api/customer/:id | Get data customer by id |
-| POST   | /api/customer/    | Add data customer       |
-| PUT    | /api/customer/:id | Update Data customer    |
-| DELETE | /api/customer/:id | Delete data customer    |
----
+| GET | /api/mechanic/ | Get All data mechanic |
+| GET | /api/mechanic/:id | Get data mechanic by id |
+| POST | /api/mechanic/ | Add data mechanic |
+| PUT | /api/mechanic/:id | Update data mechanic |
+| DELETE | /api/mechanic/:id | Delete data mechanic |
 **Order**
 <br/>
 | HTML   | API            | Description          |
