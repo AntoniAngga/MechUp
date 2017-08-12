@@ -10,6 +10,7 @@ var customer = require('./routes/customer');
 var order = require('./routes/order');
 var mechanic = require('./routes/mechanic');
 var vehicle = require('./routes/vehicle');
+var auth_mech = require('./routes/auth_mech');
 
 var app = express();
 
@@ -30,6 +31,7 @@ app.use('/api/customer', customer);
 app.use('/api/order', order);
 app.use('/api/mechanic', mechanic);
 app.use('/api/vehicle', vehicle);
+app.use('/auth/mechanic', auth_mech);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,13 +1,21 @@
 const db = require('../models');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 
 let create_post = (req,res) => {
     let data = req.body;
+    let salt = bcrypt.genSaltSync(saltRounds);
+    let hash = bcrypt.hashSync(data.password, salt);
+    
     db.customer.create({
         name : data.name,
         gender : data.gender,
-        password : data.password,
+        password : hash,
         email: data.email,
-        address: data.address
+        address: data.address,
+        username: data.username,
+        phone_number: data.phone_number
     })
     .then((result) =>{
         res.status(200).send(result)
@@ -46,7 +54,9 @@ let edit_put = (req,res) => {
         gender : data.gender,
         password : data.password,
         email: data.email,
-        address: data.address
+        address: data.address,
+        username: data.username,
+        phone_number: data.phone_number
     },{
         where : {id:id}
     })

@@ -1,13 +1,19 @@
 const db = require('../models');
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 let create_post = (req,res) => {
     let data = req.body;
+    let salt = bcrypt.genSaltSync(saltRounds);
+    let hash = bcrypt.hashSync(data.password, salt);
     db.mechanic.create({
         id_ktp: data.id_ktp,
         name: data.name,
         address: data.address,
         gender: data.gender,
-        password: data.password
+        password: hash,
+        phone_number: data.phone_number,
+        username: data.username
     })
     .then((result) =>{
         res.status(200).send(result)
@@ -46,7 +52,9 @@ let edit_put = (req,res) => {
         name: data.name,
         address: data.address,
         gender: data.gender,
-        password: data.password
+        password: data.password,
+        username: data.username,
+        phone_number: data.phone_number
     },{
         where : {id:id}
     })

@@ -11,6 +11,9 @@ module.exports = {
       role: {
         type: Sequelize.STRING
       },
+      status: {
+        type: Sequelize.STRING
+      },
       id_customer: {
         type: Sequelize.INTEGER
       },

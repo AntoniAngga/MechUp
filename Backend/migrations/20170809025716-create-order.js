@@ -23,6 +23,18 @@ module.exports = {
       location: {
         type: Sequelize.STRING
       },
+      lat_cust: {
+        type: Sequelize.STRING
+      },
+      long_cust: {
+        type: Sequelize.STRING
+      },
+      lat_mech: {
+        type: Sequelize.STRING
+      },
+      long_mech: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
