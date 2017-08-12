@@ -67,8 +67,7 @@ class MyApp extends React.Component {
     }
   
   componentDidMount() {
-    console.log('sasdasd');
-    navigator.geolocation.watchPosition((position) => {
+    navigator.geolocation.getCurrentPosition((position) => {
       console.log(position.coords);
         let tes = this.state.markers.shift()
         // this.setState({markers: tes})

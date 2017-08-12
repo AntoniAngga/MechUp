@@ -8,6 +8,8 @@ const orderReducers = (state=initialState, action) => {
   switch (action.type) {
     case 'GET_ALL_DATA_ORDER':
         return {...state, data_order: action.payload.data_order}
+    case 'MAKE_ORDER':
+        return {...state, data_order: action.payload}
     default:
     return state
   }

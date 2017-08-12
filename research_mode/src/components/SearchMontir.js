@@ -17,56 +17,90 @@ import { connect } from 'react-redux'
 
 const Petajakarta = require('../images/petajakarta.jpg')
 import MyApp from './Maps'
-import { searchMontir } from '../actions'
+import MapsContoh from './MapsContoh'
+import { 
+  getCostumerFromDB,
+  searchMontir,
+  addOrder 
+} from '../actions'
+
 
 class SearchMontir extends Component {
-     constructor(props) {
-          super(props)
-     }
-     static navigationOptions = {
-       title: 'Need Help',
-       headerTitleStyle: {
-         color: '#fff',
-         justifyContent: 'center',
-         alignItems: 'center',
-         fontSize: 28
-       },
-       headerStyle: {
-         backgroundColor: '#f0a53d'
-       }
-     }
+  constructor(props) {
+      super(props)
+      this.state = {
+        searchingMontir: '',
+        position: ''
+      }
+  }
+  static navigationOptions = {
+   title: 'Need Help',
+   headerTitleStyle: {
+     color: '#fff',
+     justifyContent: 'center',
+     alignItems: 'center',
+     fontSize: 28
+   },
+   headerStyle: {
+     backgroundColor: '#f0a53d'
+   }
+  }
+  
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        let costumerPos = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        }
+        this.setState({position: costumerPos})
+        console.log(this.state, 'coba liat state');
+      },
+      (error) => this.setState({ error: error.message }),
+      { enableHighAccuracy: false, timeout: 5000, maximumAge: 1000 },
+    );
+    this.props.getCostumerFromDB(3)
+  }
+  
+  onSeachPress(data) {
+    this.props.addOrder(data)
+  }
+  
+  render() {
+    return (
+     <Container>
+        <Content>
+          <Card>
+            <InputGroup borderType='rounded' >
+              <Icon name='ios-home' style={{color:'#384850'}}/>
+              <Input placeholder='Type your place here'/>
+            </InputGroup>
+            <CardItem style={{alignItems: 'center', height: 350}}>
+                 <MyApp />
+            </CardItem>
 
-     render() {
-          return (
-               <Container>
-                  <Content>
-                         <Card>
-                              <InputGroup borderType='rounded' >
-                                <Icon name='ios-home' style={{color:'#384850'}}/>
-                                <Input placeholder='Type your place here'/>
-                              </InputGroup>
-                              <CardItem style={{alignItems: 'center', height: 350}}>
-                                   <MyApp />
-                              </CardItem>
-
-                              <Form>
-                                <Item>
-                                   <Input style={{ height: 100 }} placeholder="  Type your car problem here !! " />
-                                </Item>
-                              </Form>
-                         </Card>
-                              <Button block success style={styles.SearchMontir}
-                                onPress= {
-                                  (data) => this.props.searchMontir(data)
-                                  //muncul modal loading
-                                }
-                              >
-                                    <Text style={styles.TextStyle}> Search Monthree Now </Text>
-                              </Button>
-                  </Content>
-                </Container>
-          )
-     }
+            <Form>
+              <Item>
+                 <Input style={{ height: 100 }} placeholder="  Type your car problem here !! " />
+              </Item>
+            </Form>
+          </Card>
+          <Button block success style={styles.SearchMontir}
+            onPress= {
+              (data, dataSearch) => this.onSeachPress({
+                id_customer: 3,
+                id_vehicle: 1,
+                status: 'open',
+              })
+              //muncul modal loading
+            }
+          >
+                <Text style={styles.TextStyle}> Search Monthree Now </Text>
+          </Button>
+        </Content>
+      </Container>
+    )
+  }
 }
 
 const styles = {
@@ -92,8 +126,16 @@ const styles = {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    searchMontir: (data) => dispatch(searchMontir(data))
+    getCostumerFromDB: (costumerId) => dispatch(getCostumerFromDB(costumerId)),
+    addOrder: (data) => dispatch(addOrder(data))
   }
 }
 
-export default SearchMontir
+const mapStateToProps = (state) => {
+  return {
+    oneMontirData: state.customerReducers.data_customers,
+    orderData: state.orderReducers.data_order
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchMontir)

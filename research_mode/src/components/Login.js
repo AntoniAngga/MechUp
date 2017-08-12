@@ -24,7 +24,6 @@ class Login extends Component {
 
 
      render() {
-       console.log('masuk login');
           const { navigate } = this.props.navigation;
           return (
                <Container>

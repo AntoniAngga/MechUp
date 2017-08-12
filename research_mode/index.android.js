@@ -43,12 +43,12 @@ export default class research_mode extends Component {
   // }
 
 //   testing () {
-//     firebase.database()
-//     .ref('posts/1234')
-//     .set({
-//       title: 'My awesome',
-//       content: 'Some awesome content',
-//     });
+    // firebase.database()
+    // .ref('posts/1234')
+    // .set({
+    //   title: 'My awesome',
+    //   content: 'Some awesome content',
+    // });
 //   }
 }
 

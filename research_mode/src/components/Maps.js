@@ -47,7 +47,6 @@ class MyApp extends React.Component {
   }
   
   async getDirections(startLoc, destinationLoc) {
-    console.log(startLoc, destinationLoc, 'asdasdasvvvv');
         try {
             let resp = await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${ startLoc }&destination=${ destinationLoc }`)
             let respJson = await resp.json();
@@ -69,8 +68,8 @@ class MyApp extends React.Component {
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        alert('asd')
         let tes = this.state.markers.shift()
-        console.log(tes, 'setelah drop', this.state.markers);
         this.state.markers.push({
           coordinate: {
             latitude: position.coords.latitude,
@@ -79,8 +78,7 @@ class MyApp extends React.Component {
           key: '0'
         })
       },
-      (error) => this.setState({ error: error.message }),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+      (error) => console.log(error)
     );
   }
   
@@ -125,7 +123,6 @@ class MyApp extends React.Component {
   }
 
   render() {
-    console.log(this.state.markers,'asdfgasdfgd');
     return (
       <View style={styles.container}>
         <TextInput 

@@ -1,5 +1,9 @@
 import axios from 'axios'
-export const server_url = 'http://localhost:3000'
+
+import firebase from '../config/FirebaseConfig'
+
+export const server_url = 'http://10.0.2.2:3000'
+// export const server_url = 'http://localhost:3000'
 
 export const oneMechanic = (data) => {
   return {
@@ -12,7 +16,7 @@ export const oneMechanic = (data) => {
 
 const getMechanicFromDB = (id) => {
   return (dispatch) => {
-    axios.get(`${server_url}/mechanic/${id}`)
+    axios.get(`${server_url}/api/mechanic/${id}`)
     .then(results => {
       dispatch(oneMechanic(results.data))
     })
@@ -22,19 +26,29 @@ const getMechanicFromDB = (id) => {
   }
 }
 
-export const oneCustomer = (data) => {
+export const oneCostumer = (data) => {
   return {
     type: 'GET_ONE_CUSTOMER',
     payload: {
-      one_mechanic: data
+      ['help'+data.id]: data
     }
   }
 }
 
-const getCostumerFromDB = (id) => {
+export const madeOrder = (data) => {
+  return {
+    type: 'MAKE_ORDER',
+    payload: {
+      ['order'+data.id]: data
+    }
+  }
+}
+
+export const getCostumerFromDB = (id) => {
   return (dispatch) => {
-    axios.get(`${server_url}/costumer/${id}`)
+    axios.get(`${server_url}/api/customer/${id}`)
     .then (results => {
+      console.log(results.data);
       dispatch(oneCostumer(results.data))
     })
     .catch(err => {
@@ -44,9 +58,8 @@ const getCostumerFromDB = (id) => {
 }
 
 export const addCar = data => {
-  alert('dalem dispatch')
   return (dispatch) => {  
-    axios.post(`http://10.0.2.2:3000/api/vehicle`, data)
+    axios.post('http://10.0.2.2:3000/api/vehicle', data)
     .then( data => {
       alert('bisa')
       return data;
@@ -58,8 +71,45 @@ export const addCar = data => {
   }
 } 
 
+export const addOrder = data => {
+  return (dispatch) => {  
+    axios.post('http://10.0.2.2:3000/api/order', data)
+    .then( results => {
+      alert('bisa')
+      console.log(results, 'ini hasil addOrder');
+      dispatch(getOrderById(results.data))
+    })
+    .catch ( err => {
+      alert('err')
+      console.log(err);
+    })
+  }
+} 
+
+export const getOrderById = (data) => {
+  return (dispatch) => {
+    axios.get(`${server_url}/api/order/${data.id}`)
+    .then (results => {
+      console.log(results.data);
+      dispatch(searchMontir(results.data))
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+}
+
 export const searchMontir = data => {
-  return (dispatch) => { 
-    
+  return (dispatch) => {
+    alert('masuk searchMontir')
+    console.log(data);
+    firebase.database()
+    .ref(`order/orderID:${data[0].id}/costumerId:${data[0].cust_id}`)
+    .set({
+      order_id: data[0].id,
+      name: data[0].cust_name,
+      // latitude: data[0].latitude,
+      // longitude: data[0].longitude
+    });
   }
 } 
