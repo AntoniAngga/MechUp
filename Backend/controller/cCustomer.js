@@ -7,7 +7,8 @@ let create_post = (req,res) => {
         gender : data.gender,
         password : data.password,
         email: data.email,
-        address: data.address
+        address: data.address,
+        phone_number: data.phone_number
     })
     .then((result) =>{
         res.status(200).send(result)
