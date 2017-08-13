@@ -1,0 +1,4 @@
+#Fri Aug 11 11:30:26 WIB 2017
+base.0=/Users/antoniangga/Documents/Hactiv8 Traning/Fase 3/MechUp/Client-MechUp/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main
+renamed.0=classes.dex
+file.0=/Users/antoniangga/Documents/Hactiv8 Traning/Fase 3/MechUp/Client-MechUp/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex
