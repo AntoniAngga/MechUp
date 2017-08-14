@@ -88,11 +88,25 @@ let destory_delete = (req,res) => {
     })
 }
 
+let get_by_id_mechanic = (req,res) => {
+    let id = req.params.id;
+    db.order.findAll({
+        where: {id_mechanic: id}
+    })
+    .then((data) => {
+        res.status(200).send(data);
+    })
+    .catch(err => {
+        res.status(500).send(err);
+    })
+}
+
 
 module.exports = {
     create_post,
     findall_get,
     findbyid_get,
     edit_put,
-    destory_delete
+    destory_delete,
+    get_by_id_mechanic
 }
