@@ -39,6 +39,24 @@ let do_login_customer = (req,res) => {
     })
 }
 
+let update_login_customer = (req,res) => {
+    let id = req.params.id;
+    let data = req.body;
+    db.login.update({
+        status: data.status,
+        lat: data.lat,
+        long: data.long
+    },{
+        where : {id:id}
+    })
+    .then((data) =>{
+        res.status(200).send(data)
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
 let do_logout_customer = (req,res) => {
     let id = req.params.id
     db.login.destroy({
@@ -83,5 +101,6 @@ module.exports = {
     do_login_customer,
     do_logout_customer,
     get_login_customer,
-    get_login_customer_by_id
+    get_login_customer_by_id,
+    update_login_customer
 }
