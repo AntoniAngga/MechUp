@@ -53,7 +53,34 @@ let do_logout_mechanic = (req,res) => {
     })
 }
 
+let get_login_mechanic = (req,res) => {
+    db.login.findAll({
+        where:{role:"Mechanic"}
+    })
+    .then((data) => {
+        res.status(200).send(data)
+    })
+    .catch((err) => {
+        res.status(500).send(err)
+    })
+}
+
+let get_login_mechanic_by_id = (req,res) => {
+    let id = req.params.id
+    db.login.findAll({
+        where:{ $and : [{role:"Mechanic"}, {id: id}]}
+    })
+    .then((data) => {
+        res.status(200).send(data)
+    })
+    .catch((err) => {
+        res.status(500).send(err)
+    })
+}
+
 module.exports = {
     do_login_mechanic,
-    do_logout_mechanic
+    do_logout_mechanic,
+    get_login_mechanic,
+    get_login_mechanic_by_id
 }
