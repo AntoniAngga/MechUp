@@ -49,9 +49,19 @@ class MontirOnline extends Component {
                               </CardItem>
                               <Text style={{ alignItems: 'center', fontSize: 20, marginLeft: 80}}>Status  : I am Online</Text>
                        </Card>
+                       <Button>
+                              <Text style={ styles.styleText }>Logout</Text>
+                       </Button>
                   </Content>
                 </Container>
           )
+     }
+}
+
+const styles = {
+     styleText : {
+          fontSize: 28,
+          color : 'red'
      }
 }
 
