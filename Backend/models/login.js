@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
     id_customer: DataTypes.INTEGER,
     id_mechanic: DataTypes.INTEGER,
     lat: DataTypes.STRING,
-    long: DataTypes.STRING
+    long: DataTypes.STRING,
+    device_id: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {

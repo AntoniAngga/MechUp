@@ -26,6 +26,9 @@ module.exports = {
       long: {
         type: Sequelize.STRING
       },
+      device_id:{
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
