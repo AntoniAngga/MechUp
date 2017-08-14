@@ -11,7 +11,7 @@ import {
      Icon,
      InputGroup
 } from 'native-base'
-import { StyleSheet, ScrollView, View, Text, TextInput, Image } from 'react-native'
+import { StyleSheet, ScrollView, View, Text, TextInput, Image, Picker, PickerItem } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 
 const Petajakarta = require('../images/petajakarta.jpg')
@@ -34,6 +34,7 @@ class SearchMontir extends Component {
      }
 
      render() {
+          const { navigate } = this.props.navigation
           return (
                <Container>
                   <Content>
@@ -52,7 +53,8 @@ class SearchMontir extends Component {
                                 </Item>
                               </Form>
                          </Card>
-                              <Button block success style={styles.SearchMontir}>
+
+                              <Button block success style={styles.SearchMontir} onPress={ () => navigate('ModalSearchMontir') }>
                                     <Text style={styles.TextStyle}> Search Monthree Now </Text>
                               </Button>
                   </Content>

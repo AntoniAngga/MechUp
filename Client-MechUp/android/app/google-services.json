@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "710275698671",
+    "project_id": "firebase-monthre"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710275698671:android:fdd7335ef2151bbc",
+        "android_client_info": {
+          "package_name": "com.monthree"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710275698671-b5gc440rnfrf2p9f2l1fmdh6o8vqg0mk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mypackage",
+            "certificate_hash": "3533f7cf3d9300743fb1e6b111424dcb98d4ecf9"
+          }
+        },
+        {
+          "client_id": "710275698671-ms0n6ko6ul7p0j1acqifgelgfkl1ftd5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwC88fZQw08KIS571Qdk-nRw3Vr3qCtv0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
