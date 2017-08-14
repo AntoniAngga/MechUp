@@ -13,7 +13,9 @@ let create_post = (req,res) => {
         gender: data.gender,
         password: hash,
         phone_number: data.phone_number,
-        username: data.username
+        username: data.username,
+        lat : data.lat,
+        long: data.long
     })
     .then((result) =>{
         res.status(200).send(result)
@@ -54,7 +56,9 @@ let edit_put = (req,res) => {
         gender: data.gender,
         password: data.password,
         username: data.username,
-        phone_number: data.phone_number
+        phone_number: data.phone_number,
+        lat: data.lat,
+        long: data.long
     },{
         where : {id:id}
     })

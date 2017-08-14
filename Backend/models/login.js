@@ -4,7 +4,9 @@ module.exports = function(sequelize, DataTypes) {
     role: DataTypes.STRING,
     status: DataTypes.STRING,
     id_customer: DataTypes.INTEGER,
-    id_mechanic: DataTypes.INTEGER
+    id_mechanic: DataTypes.INTEGER,
+    lat: DataTypes.STRING,
+    long: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {

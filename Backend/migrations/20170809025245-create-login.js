@@ -20,6 +20,12 @@ module.exports = {
       id_mechanic: {
         type: Sequelize.INTEGER
       },
+      lat: {
+        type: Sequelize.STRING
+      },
+      long: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

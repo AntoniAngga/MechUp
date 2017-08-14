@@ -7,7 +7,11 @@ let create_post = (req,res) => {
         id_mechanic: data.id_mechanic,
         id_vehicle: data.id_vehicle,
         status: data.status,
-        location: data.location
+        location: data.location,
+        lat_cust: data.lat_cust,
+        long_cust: data.long_cust,
+        lat_mech: data.lat_mech,
+        long_mech: data.long_mech
     })
     .then((result) =>{
         res.status(200).send(result)
@@ -55,7 +59,11 @@ let edit_put = (req,res) => {
         id_mechanic: data.id_mechanic,
         id_vehicle: data.id_vehicle,
         status: data.status,
-        location: data.location
+        location: data.location,
+        lat_cust: data.lat_cust,
+        long_cust: data.long_cust,
+        lat_mech: data.lat_mech,
+        long_mech: data.long_mech
     },{
         where : {id:id}
     })

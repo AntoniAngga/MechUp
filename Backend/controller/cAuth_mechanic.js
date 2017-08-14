@@ -13,17 +13,18 @@ let do_login_mechanic = (req,res) => {
     .then(result => {
         if(result[0].dataValues !== undefined){
             if(bcrypt.compareSync(data.password, result[0].dataValues.password)){
-                res.status(200).send(result)
                 db.login.findOrCreate({
                     defaults: {
                         id_customer: null,
                         id_mechanic: result[0].dataValues.id,//ini untuk id mechanicnya
                         status: "Online",
-                        role: "Mechanic"
+                        role: "Mechanic",
+                        lat: data.lat,
+                        long: data.long
                     },
                     where: { id_mechanic : result[0].dataValues.id }
-                  }).then(data=> {
-                      res.status(200).send(result[0].dataValues)
+                  }).then(result=> {
+                      res.status(200).send(result)
                   }).catch(err => {
                       res.status(500).send(err)
                   })
@@ -44,9 +45,8 @@ let do_logout_mechanic = (req,res) => {
             id_mechanic: id
         }
     })
-    .then(data => {
+    .then(() => {
         res.status(200).send("data mechanics login sudah di hapus, jika mau akses login lagi")
-        //disini id nya di hapus ya broo
     })
     .catch(err => {
         res.status(500).send(err);

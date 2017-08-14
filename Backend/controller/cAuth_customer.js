@@ -13,14 +13,22 @@ let do_login_customer = (req,res) => {
     .then(result => {
         if(result[0].dataValues !== undefined){
             if(bcrypt.compareSync(data.password, result[0].dataValues.password)){
-                res.status(200).send(result)
                 //disini masukin ke table login bro
-                db.login.create({
-                    id_customer: data.online,
-                    id_mechanic: null,
-                    status: data.status,
-                    role: data.role
-                })
+                db.login.findOrCreate({
+                    defaults: {
+                        id_customer: result[0].dataValues.id,
+                        id_mechanic: null,//ini untuk id mechanicnya
+                        status: "Online",
+                        role: "Customers",
+                        lat: data.lat,
+                        long: data.long
+                    },
+                    where: { id_customer : result[0].dataValues.id }
+                  }).then(result=> {
+                      res.status(200).send(result)
+                  }).catch(err => {
+                      res.status(500).send(err)
+                  })
             } else {
                 res.status(500).send("Wrong Passwords")
             }
@@ -33,13 +41,13 @@ let do_login_customer = (req,res) => {
 
 let do_logout_customer = (req,res) => {
     let id = req.params.id
-    db.login.destory({
+    db.login.destroy({
         where: {
             id_customer: id
         }
     })
     .then(data => {
-        console.log("data customers in login sudah di hapus, jika mau login lagi")
+        res.status(200).send("data customers in login sudah di hapus, jika mau login lagi")
     })
     .catch(err => {
         console.log(err)

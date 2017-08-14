@@ -1,11 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var cCustomer = require('../controller/cCustomer');
+var cAuth_customer = require('../controller/cAuth_customer');
 
-router.get('/', cCustomer.findall_get)
-router.post('/', cCustomer.create_post);
-router.get('/:id', cCustomer.findbyid_get);
-router.put('/:id', cCustomer.edit_put);
-router.delete('/:id', cCustomer.destory_delete);
+router.post('/login', cAuth_customer.do_login_customer);
+router.post('/logout/:id', cAuth_customer.do_logout_customer);
 
 module.exports = router;
