@@ -97,10 +97,24 @@ let get_login_customer_by_id = (req,res) => {
     })
 }
 
+let get_login_customer_by_customer_id = (req,res) => {
+    let id = req.params.id
+    db.login.findAll({
+        where:{ $and : [{role:"Customers"}, {id_customer: id}]}
+    })
+    .then((data) => {
+        res.status(200).send(data)
+    })
+    .catch((err) => {
+        res.status(500).send(err)
+    })
+}
+
 module.exports = {
     do_login_customer,
     do_logout_customer,
     get_login_customer,
     get_login_customer_by_id,
-    update_login_customer
+    update_login_customer,
+    get_login_customer_by_customer_id
 }

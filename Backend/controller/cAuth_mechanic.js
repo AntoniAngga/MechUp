@@ -96,10 +96,24 @@ let get_login_mechanic_by_id = (req,res) => {
     })
 }
 
+let get_login_mechanic_by_mechanic_id = (req,res) => {
+    let id = req.params.id
+    db.login.findAll({
+        where:{ $and : [{role:"Mechanic"}, {id_mechanic: id}]}
+    })
+    .then((data) => {
+        res.status(200).send(data)
+    })
+    .catch((err) => {
+        res.status(500).send(err)
+    })
+}
+
 module.exports = {
     do_login_mechanic,
     do_logout_mechanic,
     get_login_mechanic,
     get_login_mechanic_by_id,
-    update_login_mechanic
+    update_login_mechanic,
+    get_login_mechanic_by_mechanic_id
 }
