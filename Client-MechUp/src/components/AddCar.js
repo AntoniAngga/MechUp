@@ -4,20 +4,27 @@ import {
      Content,
      Form,
      Item,
-     Input,
-     Button,
-     Card,
      CardItem,
-     Icon
+     Icon,
+     Picker
 } from 'native-base'
 import { StyleSheet, ScrollView, View, Text, TextInput, Image } from 'react-native'
+import { Card, CardSection, Input, Button, Spinner } from './common';
 import { NavigationActions } from 'react-navigation'
 
 const Lamborgini = require('../images/lamborghini.jpg')
 
 class AddCar extends Component {
      constructor(props) {
-          super(props)
+       super(props);
+       this.state = {
+         selected1: "toyota"
+       };
+     }
+     onValueChange(value: string) {
+       this.setState({
+         selected1: value
+       });
      }
      static navigationOptions = {
        title: 'Car Customer',
@@ -37,28 +44,50 @@ class AddCar extends Component {
           return (
                <Container>
                   <Content>
-                              <Card>
-                              <Form>
-                                     <Item>
-                                          <Text>Merk</Text>
-                                             <Input placeholder="  Toyota " />
-                                     </Item>
-                                     <Item last>
-                                           <Text>Model</Text>
-                                              <Input placeholder="  Avanza " />
-                                     </Item>
-                                     <Item last>
-                                          <Text>Tahun Pembuatan</Text>
-                                             <Input placeholder=" 2015 " />
-                                     </Item>
+                     <Card>
+                         <CardSection>
+                              <Text style={{ marginLeft: 20, fontSize:18, paddingTop:10 }}>Car Type</Text>
+                              <Form style={{ flex:1,  flexDirection: 'column'}}>
+                                   <Picker style={  styles.PickerStyle }
+                                   iosHeader="Select one"
+                                   mode="dropdown"
+                                   selectedValue={this.state.selected1}
+                                   onValueChange={this.onValueChange.bind(this)}
+                                   >
+                                   <Item style={{ fontSize: 18 }} label="Toyota" value="toyota" />
+                                   <Item style={{ fontSize: 18 }} label="Daihatsu" value="daihatsu" />
+                                   <Item style={{ fontSize: 18 }} label="Suzuki" value="suzuki" />
+                                   <Item style={{ fontSize: 18 }} label="Honda" value="honda" />
+                                   <Item style={{ fontSize: 18 }} label="BMW" value="bmw" />
+                                   </Picker>
                               </Form>
-                                   <CardItem style={{alignItems: 'center', height: 250}}>
+                         </CardSection>
+                              <CardSection>
+                                <Input
+                                  label="Model"
+                                  placeholder="Car Model"
+                                />
+                              </CardSection>
+
+                              <CardSection>
+                                <Input
+                                  label="Year"
+                                  placeholder="2015"
+                                />
+                              </CardSection>
+
+                                   <CardSection style={{alignItems: 'center', height: 250}}>
                                         <Image style={{ resizeMode:"contain", flex: 1 }} source={Lamborgini}></Image>
-                                   </CardItem>
+                              </CardSection>
+
+                              <CardSection>
+                                   <Button block success style={styles.AddCar} onPress={ () => navigate('SearchMontir') }>
+                                         <Text style={styles.TextStyle }>Add Car</Text>
+                                   </Button>
+                              </CardSection>
+
                               </Card>
-                              <Button block success style={styles.AddCar} onPress={ () => navigate('SearchMontir') }>
-                                    <Text style={styles.TextStyle }>Add Car</Text>
-                              </Button>
+
                   </Content>
                 </Container>
           )
@@ -83,6 +112,11 @@ const styles = {
    },
    TextStyle: {
         fontSize : 22
+   },
+   PickerStyle: {
+        marginLeft: 18,
+        alignItems: 'center',
+        marginLeft: 30
    }
 }
 

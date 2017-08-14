@@ -1,8 +1,25 @@
 import React, { Component } from 'react';
 import { View, Text, Picker } from 'react-native';
+import { NavigationActions } from 'react-navigation'
+
+import {
+     Form,
+     Item
+} from 'native-base'
 import { Card, CardSection, Input, Button } from './common';
 
 class RegisterFormCustomer extends Component {
+     constructor(props) {
+       super(props);
+       this.state = {
+         selected1: "toyota"
+       };
+     }
+     onValueChange(value: string) {
+       this.setState({
+         selected1: value
+       });
+     }
 
      static navigationOptions = {
        title: 'Register Customer',
@@ -32,6 +49,21 @@ class RegisterFormCustomer extends Component {
         </CardSection>
 
         <CardSection>
+             <Text style={{ marginLeft: 20, fontSize:18, paddingTop:10 }}>Gender</Text>
+             <Form style={{ flex:1,  flexDirection: 'column', marginLeft: 40 }}>
+                  <Picker style={  styles.PickerStyle }
+                  iosHeader="Select one"
+                  mode="dropdown"
+                  selectedValue={this.state.selected1}
+                  onValueChange={this.onValueChange.bind(this)}
+                  >
+                  <Item style={{ fontSize: 18 }} label="Male" value="male" />
+                  <Item style={{ fontSize: 18 }} label="Femala" value="female" />
+                  </Picker>
+             </Form>
+        </CardSection>
+
+        <CardSection>
           <Input
             label="Gender"
             placeholder="Perempuan"
@@ -51,6 +83,7 @@ class RegisterFormCustomer extends Component {
 
         <CardSection>
           <Input
+            secureTextEntry
             label="Password"
             placeholder="Password"
             value={this.props.password}

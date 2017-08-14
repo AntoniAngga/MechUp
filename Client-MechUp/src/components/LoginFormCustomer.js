@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
+import {
+     Icon,
+     Left
+} from 'native-base'
 import { NavigationActions } from 'react-navigation'
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
@@ -60,6 +64,7 @@ class LoginFormCustomer extends Component {
   render() {
     return (
       <Card>
+
         <CardSection>
           <Input
             label="Email"

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
+
 import { NavigationActions } from 'react-navigation'
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
 class LoginFormMontir extends Component {
 
      static navigationOptions = {
-       title: 'Form Login Montir',
+       title: 'Login Form Montir',
        headerTitleStyle: {
          color: '#fff',
          justifyContent: 'center',

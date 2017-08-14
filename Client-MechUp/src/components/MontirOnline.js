@@ -3,9 +3,6 @@ import {
      Container,
      Header,
      Content,
-     Input,
-     Button,
-     Card,
      CardItem,
      Icon,
      InputGroup,
@@ -14,6 +11,7 @@ import {
      ListItem
 } from 'native-base'
 import { StyleSheet, ScrollView, View, Text, TextInput, Image } from 'react-native'
+import { Card, CardSection, Button } from './common';
 import { NavigationActions } from 'react-navigation'
 
 const Online = require('../images/online.png')
@@ -44,13 +42,15 @@ class MontirOnline extends Component {
                        </Button>
                   </Left>
                        <Card>
-                              <CardItem style={{alignItems: 'center', height: 350, paddingTop: 60}}>
+                              <CardSection style={{alignItems: 'center', height: 350, paddingTop: 60}}>
                                    <Image style={{ resizeMode:"contain", flex: 1 }} source={Online}></Image>
-                              </CardItem>
+                              </CardSection>
+                              <CardSection>
                               <Text style={{ alignItems: 'center', fontSize: 20, marginLeft: 80}}>Status  : I am Online</Text>
+                              </CardSection>
                        </Card>
                        <Button>
-                              <Text style={ styles.styleText }>Logout</Text>
+                              <Text style={ styles.styleText } onPress= { () => navigate('Login')}>Logout</Text>
                        </Button>
                   </Content>
                 </Container>
@@ -60,8 +60,7 @@ class MontirOnline extends Component {
 
 const styles = {
      styleText : {
-          fontSize: 28,
-          color : 'red'
+          fontSize: 22
      }
 }
 

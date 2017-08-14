@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import {
      Container,
      Content,
-     Input,
-     Button,
-     Card,
      CardItem,
      Icon,
      InputGroup,
@@ -13,10 +10,12 @@ import {
 } from 'native-base'
 import { StyleSheet, ScrollView, View, Text, TextInput, Image } from 'react-native'
 import { NavigationActions } from 'react-navigation'
+import { Card, CardSection, Input, Button, Spinner } from './common';
+
 
 class MontirGetOrder extends Component {
      static navigationOptions = {
-       title: 'Need to Repair',
+       title: 'Order',
        headerTitleStyle: {
          color: '#fff',
          justifyContent: 'center',
@@ -35,23 +34,23 @@ class MontirGetOrder extends Component {
                   <Content>
                        <Card>
                             <List>
-                                <ListItem itemDivider>
+                                <CardSection>
                                    <Text>Customer Name : Simon Mignolet </Text>
-                                </ListItem>
-                                <ListItem itemDivider>
+                                </CardSection>
+                                <CardSection>
                                    <Text>Car Merk : Toyota </Text>
-                                </ListItem>
-                                <ListItem itemDivider>
+                                </CardSection>
+                                <CardSection>
                                    <Text>Car Type : Avanza </Text>
-                                </ListItem>
-                                <ListItem itemDivider>
-                                   <Text>Lokasi : JL.Pondok Indah </Text>
-                                </ListItem>
-                                <ListItem itemDivider>
+                                </CardSection>
+                                <CardSection>
+                                   <Text>Location : JL.Pondok Indah </Text>
+                                </CardSection>
+                                <CardSection>
                                    <Text>Car Problem</Text>
-                                </ListItem>
+                                </CardSection>
                                 <ListItem>
-                                   <Text>Mesin tidak bisa di stater</Text>
+                                   <Text style={{ color: '#fe5621' }}>Mesin tidak bisa di stater</Text>
                                 </ListItem>
                           </List>
                        </Card>
@@ -94,10 +93,10 @@ const styles = {
       elevation: 1,
       marginLeft: 5,
       marginRight: 5,
-      marginTop: 20,
+      marginTop: 50,
    },
    TextStyle: {
-        fontSize : 22
+        fontSize : 20
    }
 }
 

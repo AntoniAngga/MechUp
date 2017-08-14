@@ -34,7 +34,7 @@ class ModalSearchMontir extends Component {
   }
 
   static navigationOptions = {
-    title: 'Pencarian Montir',
+    title: 'Searching Montir',
     headerTitleStyle: {
       color: '#fff',
       justifyContent: 'center',
@@ -55,19 +55,19 @@ class ModalSearchMontir extends Component {
     })
     return (
       <View style={styles.container}>
-             <Animated.Image
-               style={{ width: 150, height: 150, transform: [{rotate: spin}] }}
-               source={{uri: 'http://blog.frii.com/wp-content/uploads/2014/09/loading.png'}}/>
-               <Text style={ styles.textSpin }>Pencarian Montir</Text>
-               <Text style={ styles.textTunggu } >Mohon tunggu Sebentar</Text>
+                  <Animated.Image
+                    style={{ width: 150, height: 150, transform: [{rotate: spin}] }}
+                    source={{uri: 'http://blog.frii.com/wp-content/uploads/2014/09/loading.png'}}/>
+                    <Text style={ styles.textSpin }>Pencarian Montir</Text>
+                    <Text style={ styles.textTunggu } >Mohon tunggu Sebentar</Text>
                <CardSection>
                     <Button onPress={ () => navigate('SearchMontir') }>
-                      Batalkan
+                      Cancel
                     </Button>
                </CardSection>
                <CardSection>
                     <Button onPress={ () => navigate('ModalDetailMontir') }>
-                      Lihat Detail Montir
+                      Detail Montir
                     </Button>
                </CardSection>
       </View>
