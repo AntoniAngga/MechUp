@@ -29,12 +29,6 @@ module.exports = {
       long_cust: {
         type: Sequelize.STRING
       },
-      lat_mech: {
-        type: Sequelize.STRING
-      },
-      long_mech: {
-        type: Sequelize.STRING
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
