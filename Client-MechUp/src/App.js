@@ -15,13 +15,15 @@ import ModalSearchMontir from './components/ModalSearchMontir'
 import ModalDetailMontir from './components/ModalDetailMontir'
 
 const MainCustomer = DrawerNavigator({
-     Customer: { screen: AddCar },
+     DashboardCustomer: { screen: LoginFormCustomer },
+     RegisterFormCustomer : { screen: RegisterFormCustomer },
+     AddCar: { screen: AddCar },
      SearchMontir: { screen: SearchMontir }
    }, {
-     initialRouteName: 'Customer',
-     headerMode: 'screen'
+     initialRouteName: 'DashboardCustomer',
+     headerMode: 'none'
 })
-
+  
 const MainMontir = DrawerNavigator({
      DasboardMontir: { screen: MontirOnline },
      MontirGetOrder: { screen: MontirGetOrder },
@@ -33,10 +35,11 @@ const MainMontir = DrawerNavigator({
 })
 
 export default App = StackNavigator ({
+     // AddCar: { screen: AddCar },
      Login: { screen: Login },
+     RegisterFormCustomer: {screen: RegisterFormCustomer },
      LoginFormCustomer: {screen: LoginFormCustomer },
      LoginFormMontir: {screen: LoginFormMontir },
-     RegisterFormCustomer: {screen: RegisterFormCustomer },
      MainCustomer: { screen: MainCustomer },
      AddCar: { screen: AddCar },
      SearchMontir: { screen: SearchMontir },

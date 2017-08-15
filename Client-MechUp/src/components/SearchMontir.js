@@ -4,14 +4,13 @@ import {
      Content,
      Form,
      Item,
-     Input,
-     Button,
-     Card,
      CardItem,
      Icon,
+     Input,
      InputGroup
 } from 'native-base'
 import { StyleSheet, ScrollView, View, Text, TextInput, Image, Picker, PickerItem } from 'react-native'
+import { Card, CardSection, Button } from './common';
 import { NavigationActions } from 'react-navigation'
 
 const Petajakarta = require('../images/petajakarta.jpg')
@@ -21,7 +20,7 @@ class SearchMontir extends Component {
           super(props)
      }
      static navigationOptions = {
-       title: 'Need Help',
+       title: 'Search Montir',
        headerTitleStyle: {
          color: '#fff',
          justifyContent: 'center',
@@ -39,24 +38,30 @@ class SearchMontir extends Component {
                <Container>
                   <Content>
                          <Card>
-                              <InputGroup borderType='rounded' >
-                                <Icon name='ios-home' style={{color:'#384850'}}/>
-                                <Input placeholder='Type your place here'/>
-                              </InputGroup>
-                              <CardItem style={{alignItems: 'center', height: 250}}>
-                                   <Image style={{ resizeMode:"contain", flex: 1 }} source={Petajakarta}></Image>
-                              </CardItem>
-
-                              <Form>
-                                <Item>
-                                   <Input style={{ height: 100 }} placeholder="  Type your car problem here !! " />
-                                </Item>
-                              </Form>
-                         </Card>
-
-                              <Button block success style={styles.SearchMontir} onPress={ () => navigate('ModalSearchMontir') }>
-                                    <Text style={styles.TextStyle}> Search Monthree Now </Text>
+                         <CardSection>
+                              <Button block success style={styles.SearchMontir} onPress={ () => navigate('AddCar') }>
+                                    <Text style={styles.TextStyle}> Add Car Customer </Text>
                               </Button>
+                         </CardSection>
+                         <CardSection>
+                           <Input
+                             placeholder="Type your place here"
+                           />
+                         </CardSection>
+                              <CardSection style={{alignItems: 'center', height: 300}}>
+                                   <Image style={{ resizeMode:"contain", flex: 1 }} source={Petajakarta}></Image>
+                              </CardSection>
+                              <CardSection>
+                                <Input
+                                  placeholder="Type your car problem here !!"
+                                />
+                              </CardSection>
+                              <CardSection>
+                                   <Button block success style={styles.SearchMontir} onPress={ () => navigate('ModalSearchMontir') }>
+                                         <Text style={styles.TextStyle}> Search Montir Now </Text>
+                                   </Button>
+                              </CardSection>
+                              </Card>
                   </Content>
                 </Container>
           )
@@ -80,7 +85,7 @@ const styles = {
 
    },
    TextStyle: {
-        fontSize : 22
+        fontSize : 18
    }
 }
 
