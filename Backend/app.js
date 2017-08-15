@@ -12,6 +12,7 @@ var mechanic = require('./routes/mechanic');
 var vehicle = require('./routes/vehicle');
 var auth_mech = require('./routes/auth_mech');
 var auth_cust = require('./routes/auth_cust');
+var sms = require('./routes/sms');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.use('/api/mechanic', mechanic);
 app.use('/api/vehicle', vehicle);
 app.use('/auth/mechanic', auth_mech);
 app.use('/auth/customer', auth_cust);
+app.use('/send/sms/', sms)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
