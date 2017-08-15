@@ -21,7 +21,7 @@ let create_post = (req,res) => {
 
 let findbyid_get = (req,res) => {
     let id = req.params.id;
-    db.sequelize.query(`select "customers"."id" as "cust_id", "customers"."name" as "cust_name", "customers"."gender" as "cust_gender", "customers"."email" as "cust_email", "customers"."address" as "cust_address", "customers"."phone_number" as "cust_phone_number","mechanics"."id" as "mech_id","mechanics"."name" as "mech_name", "mechanics"."gender" as "mech_gender", "mechanics"."phone_number" as "mech_phone_number", "mechanics"."lat" as "lat_mech", "mechanics"."long" as "long_mech" , "vehicles"."id", "vehicles"."type","vehicles"."merek","vehicles"."tahun" ,"orders"."id" as "order_id", "orders"."status" as "order_status", "orders"."lat_cust", "orders"."long_cust", "orders"."lat_mech", "orders"."long_mech" from "orders"
+    db.sequelize.query(`select "customers"."id" as "cust_id", "customers"."name" as "cust_name", "customers"."gender" as "cust_gender", "customers"."email" as "cust_email", "customers"."address" as "cust_address", "customers"."phone_number" as "cust_phone_number","mechanics"."id" as "mech_id","mechanics"."name" as "mech_name", "mechanics"."gender" as "mech_gender", "mechanics"."phone_number" as "mech_phone_number", "mechanics"."lat" as "lat_mech", "mechanics"."long" as "long_mech" , "vehicles"."id", "vehicles"."type","vehicles"."merek","vehicles"."tahun" ,"orders"."id" as "order_id", "orders"."status" as "order_status", "orders"."lat_cust", "orders"."long_cust" from "orders"
     inner join "customers" on "customers"."id" = "orders"."id_customer"
     LEFT join "mechanics" on "mechanics"."id" = "orders"."id_mechanic"
     LEFT join "vehicles" on "vehicles"."id" = "orders"."id_vehicle"
@@ -36,7 +36,7 @@ let findbyid_get = (req,res) => {
 }
 
 let findall_get = (req,res) => {
-    db.sequelize.query(`select "customers"."id" as "cust_id", "customers"."name" as "cust_name", "customers"."gender" as "cust_gender", "customers"."email" as "cust_email", "customers"."address" as "cust_address", "customers"."phone_number" as "cust_phone_number","mechanics"."id" as "mech_id","mechanics"."name" as "mech_name", "mechanics"."gender" as "mech_gender", "mechanics"."phone_number" as "mech_phone_number","mechanics"."lat" as "lat_mech", "mechanics"."long" as "long_mech", "vehicles"."id", "vehicles"."type","vehicles"."merek","vehicles"."tahun" ,"orders"."id" as "order_id", "orders"."status" as "order_status", "orders"."lat_cust", "orders"."long_cust", "orders"."lat_mech", "orders"."long_mech" from "orders"
+    db.sequelize.query(`select "customers"."id" as "cust_id", "customers"."name" as "cust_name", "customers"."gender" as "cust_gender", "customers"."email" as "cust_email", "customers"."address" as "cust_address", "customers"."phone_number" as "cust_phone_number","mechanics"."id" as "mech_id","mechanics"."name" as "mech_name", "mechanics"."gender" as "mech_gender", "mechanics"."phone_number" as "mech_phone_number", "mechanics"."lat" as "lat_mech", "mechanics"."long" as "long_mech" , "vehicles"."id", "vehicles"."type","vehicles"."merek","vehicles"."tahun" ,"orders"."id" as "order_id", "orders"."status" as "order_status", "orders"."lat_cust", "orders"."long_cust" from "orders"
     inner join "customers" on "customers"."id" = "orders"."id_customer"
     LEFT join "mechanics" on "mechanics"."id" = "orders"."id_mechanic"
     LEFT join "vehicles" on "vehicles"."id" = "orders"."id_vehicle"
