@@ -27,7 +27,7 @@ class AddCar extends Component {
        });
      }
      static navigationOptions = {
-       title: 'Car Customer',
+       title: 'Add Car Customer',
        headerTitleStyle: {
          color: '#fff',
          justifyContent: 'center',
@@ -62,32 +62,27 @@ class AddCar extends Component {
                                    </Picker>
                               </Form>
                          </CardSection>
-                              <CardSection>
-                                <Input
-                                  label="Model"
-                                  placeholder="Car Model"
-                                />
-                              </CardSection>
-
-                              <CardSection>
-                                <Input
-                                  label="Year"
-                                  placeholder="2015"
-                                />
-                              </CardSection>
-
-                                   <CardSection style={{alignItems: 'center', height: 250}}>
-                                        <Image style={{ resizeMode:"contain", flex: 1 }} source={Lamborgini}></Image>
-                              </CardSection>
-
-                              <CardSection>
-                                   <Button block success style={styles.AddCar} onPress={ () => navigate('SearchMontir') }>
-                                         <Text style={styles.TextStyle }>Add Car</Text>
-                                   </Button>
-                              </CardSection>
-
-                              </Card>
-
+                         <CardSection>
+                           <Input
+                             label="Model"
+                             placeholder="Car Model"
+                           />
+                         </CardSection>
+                         <CardSection>
+                           <Input
+                             label="Year"
+                             placeholder="2015"
+                           />
+                         </CardSection>
+                         <CardSection style={{alignItems: 'center', height: 250}}>
+                              <Image style={{ resizeMode:"contain", flex: 1 }} source={Lamborgini}></Image>
+                         </CardSection>
+                         <CardSection>
+                              <Button block success style={styles.AddCar} onPress={ () => navigate('MainCustomer') }>
+                                    <Text style={styles.TextStyle }>Add Car</Text>
+                              </Button>
+                         </CardSection>
+                         </Card>
                   </Content>
                 </Container>
           )

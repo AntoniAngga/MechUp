@@ -21,6 +21,7 @@ export default class ModalDetailMontir extends React.Component {
   }
 
   render() {
+     const { navigate } = this.props.navigation
     return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <TouchableOpacity onPress={() => this.setState({open: true})}>
@@ -50,7 +51,7 @@ export default class ModalDetailMontir extends React.Component {
                <Image style={{ resizeMode:"contain", flex: 1 }} source={Petajakarta}></Image>
           </CardSection>
                <CardSection>
-                    <Button onPress={() => this.setState({open: false})}>
+                    <Button onPress={() => navigate ('MainCustomer')}>
                       Close
                     </Button>
                </CardSection>

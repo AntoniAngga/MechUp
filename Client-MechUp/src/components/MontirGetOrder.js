@@ -14,18 +14,18 @@ import { Card, CardSection, Input, Button, Spinner } from './common';
 
 
 class MontirGetOrder extends Component {
-     static navigationOptions = {
-       title: 'Order',
-       headerTitleStyle: {
-         color: '#fff',
-         justifyContent: 'center',
-         alignItems: 'center',
-         fontSize: 28
-       },
-       headerStyle: {
-         backgroundColor: '#f0a53d'
-       }
-     }
+     // static navigationOptions = {
+     //   title: 'Order',
+     //   headerTitleStyle: {
+     //     color: '#fff',
+     //     justifyContent: 'center',
+     //     alignItems: 'center',
+     //     fontSize: 28
+     //   },
+     //   headerStyle: {
+     //     backgroundColor: '#f0a53d'
+     //   }
+     // }
 
      render() {
           const { navigate } = this.props.navigation
@@ -44,7 +44,7 @@ class MontirGetOrder extends Component {
                                    <Text>Car Type : Avanza </Text>
                                 </CardSection>
                                 <CardSection>
-                                   <Text>Location : JL.Pondok Indah </Text>
+                                   <Text>Address : JL.Pondok Indah </Text>
                                 </CardSection>
                                 <CardSection>
                                    <Text>Car Problem</Text>

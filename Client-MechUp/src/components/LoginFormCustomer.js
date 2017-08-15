@@ -42,7 +42,7 @@ class LoginFormCustomer extends Component {
     }
 
     return (
-      <Button onPress={ () => navigate('SearchMontir') }>
+      <Button onPress={ () => navigate('MainCustomer') }>
         Login
       </Button>
     );

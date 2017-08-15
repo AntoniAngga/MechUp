@@ -38,11 +38,7 @@ class SearchMontir extends Component {
                <Container>
                   <Content>
                          <Card>
-                         <CardSection>
-                              <Button block success style={styles.SearchMontir} onPress={ () => navigate('AddCar') }>
-                                    <Text style={styles.TextStyle}> Add Car Customer </Text>
-                              </Button>
-                         </CardSection>
+                         
                          <CardSection>
                            <Input
                              placeholder="Type your place here"
