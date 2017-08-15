@@ -23,7 +23,7 @@ const MainCustomer = DrawerNavigator({
      initialRouteName: 'DashboardCustomer',
      headerMode: 'none'
 })
-
+  
 const MainMontir = DrawerNavigator({
      DasboardMontir: { screen: MontirOnline },
      MontirGetOrder: { screen: MontirGetOrder },

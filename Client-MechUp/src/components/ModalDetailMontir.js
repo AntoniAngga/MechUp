@@ -30,7 +30,7 @@ export default class ModalDetailMontir extends React.Component {
         offset={this.state.offset}
         open={this.state.open}
         modalDidOpen={() => console.log('modal did open')}
-        modalDidClose={() => this.setState({open: false })}
+        modalDidClose={() => this.setState({open: true })}
         style={{alignItems: 'center'}}>
         <View>
           <Card>

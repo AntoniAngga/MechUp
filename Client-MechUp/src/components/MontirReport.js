@@ -15,7 +15,8 @@ const PetaJakarta = require('../images/petajakarta.jpg')
 
 class MontirReport extends Component {
      state = {
-          open : true
+          open : false,
+          order : true
      }
      static navigationOptions = {
        title: 'Report Montir ',
