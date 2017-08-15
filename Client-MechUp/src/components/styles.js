@@ -1,20 +1,10 @@
 import { StyleSheet, Dimensions } from 'react-native'
 
-const windowWidth = Dimensions.get('window').width
-const windowHeight = Dimensions.get('window').height
-const newWidth = (windowWidth / 2) - 10
-const newHeight = (windowHeight / 100) * 40
-const basketWidth = windowWidth - 10
-const basketHeight = (windowHeight / 100) * 20
 
 export const color = {
   white: '#F8F8F8',
   black: '#38474F',
   gray: '#E8E8E8',
-  lightGray: '#DDD',
-  darkGray: '#A6A6AD',
-  lightBlue: '#52B3D9',
-  darkBlue: '#22313F',
   orange: '#F6846A',
   lightOrange: '#FFEEE4',
   niceOrange: '#F2784B',

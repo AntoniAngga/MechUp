@@ -6,7 +6,7 @@ import FitImage from 'react-native-fit-image'
 import { styles } from '../styles'
 
 
-export default class DrawerContent extends React.Component {
+export default class DrawerStyle extends React.Component {
   constructor(props) {
     super(props)
   }

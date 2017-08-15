@@ -1,7 +1,7 @@
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { StyleSheet } from 'react-native'
+
 
 const OpenDraw = ({navigation}) => (
   <TouchableOpacity

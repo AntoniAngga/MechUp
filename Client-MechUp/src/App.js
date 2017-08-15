@@ -14,7 +14,7 @@ import LoginFormMontir from './components/LoginFormMontir'
 import RegisterFormCustomer from './components/RegisterFormCustomer'
 import ModalSearchMontir from './components/ModalSearchMontir'
 import ModalDetailMontir from './components/ModalDetailMontir'
-import DrawerContent from './components/DrawerContent'
+import DrawerStyle from './components/DrawerContent'
 import { color } from './components/styles'
 
 
@@ -89,7 +89,7 @@ const MainCustomer = DrawerNavigator({
     inactiveTintColor: color.black,
     inactiveBackgroundColor: color.lightOrange,
   },
-  contentComponent: props => <DrawerContent {...props} />
+  contentComponent: props => <DrawerStyle {...props} />
 }
 )
 
@@ -166,7 +166,7 @@ const MainMontir = DrawerNavigator({
 //     inactiveTintColor: color.black,
 //     inactiveBackgroundColor: color.lightOrange,
 //   },
-//   contentComponent: props => <DrawerContent {...props} />,
+//   contentComponent: props => <DrawerStyle {...props} />,
 })
 
 export default App = StackNavigator ({
