@@ -8,7 +8,6 @@ import {
   TextInput
 } from 'react-native';
 import axios from 'axios'
-import { connect } from 'react-redux'
 import MapView, { MAP_TYPES } from 'react-native-maps';
 import Polyline from '@mapbox/polyline';
 import _ from 'lodash'
@@ -27,17 +26,22 @@ let id = 1;
 class MyApp extends React.Component {
   constructor(props) {
     super(props);
-    
 
     this.state = {
       region: {
-        latitude: +this.props.mapping.final3.lat_mech || LATITUDE,
-        longitude: +this.props.mapping.final3.long_mech || LONGITUDE,
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
       statusBarHeight: '',
-      markers: [],
+      markers: [{
+        coordinate: {
+          latitude: LATITUDE,
+          longitude: LONGITUDE
+        },
+        key: '0'
+      }],
       coords: []
     };
   }
@@ -55,6 +59,7 @@ class MyApp extends React.Component {
                 }
             })
             this.setState({coords: coords})
+            console.log(coords);
             return coords
         } catch(error) {
             alert(error)
@@ -63,31 +68,19 @@ class MyApp extends React.Component {
     }
   
   componentDidMount() {
-    let latitudeMech = this.props.mapping.final3.lat_mech
-    let latitudeCust = this.props.mapping.final3.lat_cust
-    let longitudeMech = this.props.mapping.final3.long_mech
-    let longitudeCust = this.props.mapping.final3.long_cust
-    this.state.markers.push({
-      coordinate: {
-      latitude: +latitudeMech,
-      longitude: +longitudeMech
-    },
-      key: null})
-    
-    this.setState({
-      markers: [
-        ...this.state.markers,
-        {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position.coords);
+        let tes = this.state.markers.shift()
+        // this.setState({markers: tes})
+        console.log(tes, 'setelah drop', this.state.markers);
+        this.state.markers.push({
           coordinate: {
-            latitude: +latitudeCust,
-            longitude: +longitudeCust
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
           },
-          key: `${id++}`,
-        },
-      ],
-    });
-    // this.getDirectionsMaps(`${this.props.mapping.final1.lat_mech},${this.props.mapping.final1.long_mech}`, `${this.props.mapping.final1.lat_cust},${this.props.mapping.final1.long_cust}`)
-    console.log(this.state.markers, 'ini markers');
+          key: '0'
+        })
+    })
   }
   
   onMapPress(e) {
@@ -131,37 +124,44 @@ class MyApp extends React.Component {
   }
 
   render() {
-    console.log(this.state.region, 'ini regionnya');
+    console.log(this.state.markers,'asdfgasdfgd');
     return (
       <View style={styles.container}>
+        <TextInput 
+        style={styles.inputs}
+        placeholder="Type here to translate!"
+        onChangeText={(query) => this.onSearch(query)}
+        />
         <MapView
           provider={this.props.provider}
           ref={ref => { this.map = ref; }}
           mapType={MAP_TYPES.TERRAIN}
           style={styles.map}
           initialRegion={this.state.region}
+          onRegionChange={region => this.onRegionChange(region)}
+          onPress={(e) => this.onMapPress(e)}
+          
         >
-        {
-        //   this.state.markers.map(marker => (
-        //   <MapView.Marker
-        //     title={marker.key}
-        //     key={marker.key}
-        //     coordinate={marker.coordinate}
-        //   />
-        // ))
-      }
-        <MapView.Polyline 
-            coordinates={this.state.coords}
-            strokeWidth={2}
-            strokeColor="black"/>
-      </MapView>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          onPress={(origin, destination) => this.getDirectionsMaps(`${this.state.markers[0].coordinate.latitude},${this.state.markers[0].coordinate.longitude}`, `${this.state.markers[1].coordinate.latitude},${this.state.markers[1].coordinate.longitude}`)}
-          style={[styles.bubble, styles.button]}
-        >
-          <Text style={styles.buttonText}>get direction</Text>
-        </TouchableOpacity>
+          {this.state.markers.map(marker => (
+            <MapView.Marker
+              title={marker.key}
+              key={marker.key}
+              coordinate={marker.coordinate}
+              draggable
+            />
+          ))}
+          <MapView.Polyline 
+              coordinates={this.state.coords}
+              strokeWidth={2}
+              strokeColor="black"/>
+        </MapView>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={(origin, destination) => this.getDirectionsMaps(`${this.state.markers[0].coordinate.latitude},${this.state.markers[0].coordinate.longitude}`, `${this.state.markers[1].coordinate.latitude},${this.state.markers[1].coordinate.longitude}`)}
+            style={[styles.bubble, styles.button]}
+          >
+            <Text style={styles.buttonText}>get direction</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -213,19 +213,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    completeOrder: (input) => {
-      dispatch(completeOrder(input))
-    }
-  }
-}
-
-const mapStateToProps = (state) => {
-  console.log(state, 'ini state');
-  return {
-    mapping: state.orderReducers.data_order
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyApp)
+module.exports = MyApp;

@@ -54,12 +54,12 @@ class SearchMontir extends Component {
           longitude: position.coords.longitude
         }
         this.setState({position: costumerPos})
+        alert('koq ngg bisa')
         console.log(this.state, 'coba liat state');
       },
       (error) => this.setState({ error: error.message }),
-      { enableHighAccuracy: false, timeout: 5000, maximumAge: 1000 },
+      // { enableHighAccuracy: false, timeout: 5000, maximumAge: 1000 },
     );
-    this.props.getCostumerFromDB(3)
   }
   
   onSeachPress(data) {
@@ -87,10 +87,12 @@ class SearchMontir extends Component {
           </Card>
           <Button block success style={styles.SearchMontir}
             onPress= {
-              (data, dataSearch) => this.onSeachPress({
-                id_customer: 3,
+              (data) => this.onSeachPress({
+                id_customer: 1,
                 id_vehicle: 1,
                 status: 'open',
+                lat_cust: this.state.position.latitude,
+                long_cust: this.state.position.longitude
               })
               //muncul modal loading
             }

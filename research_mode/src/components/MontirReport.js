@@ -11,6 +11,8 @@ import {
 } from 'native-base'
 import { View, Text, Image } from 'react-native'
 
+import MyApp from './MapsContoh'
+import MyApp2 from './MapsContohcopy'
 const PetaJakarta = require('../images/petajakarta.jpg')
 
 class MontirReport extends Component {
@@ -54,7 +56,7 @@ class MontirReport extends Component {
                      </List>
 
                           <CardItem style={{alignItems: 'center', height: 180}}>
-                               <Image style={{ resizeMode:"contain", flex: 1 }} source={PetaJakarta}></Image>
+                            <MyApp />
                           </CardItem>
                      </Card>
                          <Button block success>

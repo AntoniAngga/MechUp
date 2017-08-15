@@ -12,10 +12,22 @@ import {
      List,
      ListItem
 } from 'native-base'
+import { connect } from 'react-redux'
 import { StyleSheet, ScrollView, View, Text, TextInput, Image } from 'react-native'
 import { NavigationActions } from 'react-navigation'
+import axios from 'axios'
 
-class MontirGetOrder extends Component {
+import firebase from '../config/FirebaseConfig'
+import { completeOrder, idLoggedMechanic, server_url } from '../actions'
+
+class MontirGetOrder extends Component {  
+      constructor() {
+        super()
+        this.state= {
+          choosenMechanic: ''
+        }
+      }
+      
      static navigationOptions = {
        title: 'Need to Repair',
        headerTitleStyle: {
@@ -27,6 +39,22 @@ class MontirGetOrder extends Component {
        headerStyle: {
          backgroundColor: '#f0a53d'
        }
+     }
+     
+     componentDidMount() {       
+         axios.get(server_url+'/api/mechanic/'+idLoggedMechanic[0].id_mechanic)
+         .then( res => {
+           this.setState({'choosenMechanic': res.data})
+           console.log(this.state.choosenMechanic, 'ini choosenMechanic');
+           firebase.database()
+           .ref(`order/orderID:${this.state.choosenMechanic.id}/status`)
+           .on('value', (snapshot) => {
+             console.log('inside snapshot', snapshot.val());
+           })
+         })
+         .catch( err => {
+           console.log(err);
+         })
      }
 
      render() {
@@ -56,7 +84,10 @@ class MontirGetOrder extends Component {
                                 </ListItem>
                           </List>
                        </Card>
-                         <Button block success  style={styles.AcceptOrder} onPress= { () => navigate('MontirReport')}>
+                         <Button block success  style={styles.AcceptOrder}
+                          onPress= { 
+                            (input) => this.props.completeOrder(this.state.choosenMechanic) 
+                          }>
                                <Text style={styles.TextStyle}> Accept </Text>
                          </Button>
                          <Button block danger style={styles.DeclineOrder}>
@@ -102,4 +133,19 @@ const styles = {
    }
 }
 
-export default MontirGetOrder
+const mapDispatchToProps = (dispatch) => {
+  return {
+    completeOrder: (input) => {
+      dispatch(completeOrder(input))
+    }
+  }
+}
+
+const mapStateToProps = (state) => {
+  console.log(state, 'ini state');
+  return {
+    mapping: state
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MontirGetOrder)

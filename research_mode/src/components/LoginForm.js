@@ -2,28 +2,35 @@ import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { NavigationActions } from 'react-navigation'
 import { Card, CardSection, Input, Button, Spinner } from './common';
+import { connect } from 'react-redux'
+import { login_customer } from '../actions'
 
-class LoginForm extends Component {
-
-     static navigationOptions = {
-       title: 'Form Login Customer',
-       headerTitleStyle: {
-         color: '#fff',
-         justifyContent: 'center',
-         alignItems: 'center',
-         fontSize: 28
-       },
-       headerStyle: {
-         backgroundColor: '#00897b'
-       }
+class LoginForm extends Component {     
+   constructor(props) {
+      super(props)
+      this.state = {
+        username: '',
+        password: ''
+      }
+   }
+   static navigationOptions = {
+     title: 'Form Login Customer',
+     headerTitleStyle: {
+       color: '#fff',
+       justifyContent: 'center',
+       alignItems: 'center',
+       fontSize: 28
+     },
+     headerStyle: {
+       backgroundColor: '#00897b'
      }
-
-  onEmailChange(text) {
-    this.props.emailChanged(text);
+   }
+  onUsernameChange(input) {
+    this.setState({'username': input})
   }
 
-  onPasswordChange(text) {
-    this.props.passwordChanged(text);
+  onPasswordChange(input) {
+    this.setState({'password': input});
   }
 
   onButtonPress() {
@@ -38,7 +45,7 @@ class LoginForm extends Component {
     }
 
     return (
-      <Button onPress={ () => navigate('SearchMontir') }>
+      <Button onPress={ (input) => {this.props.do_login(this.state) }}>
         Login
       </Button>
     );
@@ -64,7 +71,7 @@ class LoginForm extends Component {
           <Input
             label="Email"
             placeholder="email@gmail.com"
-            onChangeText={this.onEmailChange.bind(this)}
+            onChangeText={(e) => this.onUsernameChange(e)}
             value={this.props.email}
           />
         </CardSection>
@@ -74,7 +81,7 @@ class LoginForm extends Component {
             secureTextEntry
             label="Password"
             placeholder="password"
-            onChangeText={this.onPasswordChange.bind(this)}
+            onChangeText={(e) => this.onPasswordChange(e)}
             value={this.props.password}
           />
         </CardSection>
@@ -104,4 +111,18 @@ const styles = {
   }
 };
 
-export default LoginForm
+const mapDispatchToProps = (dispatch) => {
+  return {
+    do_login: (input) => {
+      dispatch(login_customer(input))
+    }
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    mapping: state
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
