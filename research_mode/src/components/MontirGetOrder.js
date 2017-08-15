@@ -57,6 +57,12 @@ class MontirGetOrder extends Component {
          })
      }
 
+     onAccept (input) {
+        const { navigate } = this.props.navigation;
+        this.props.completeOrder(input);
+        navigate('MontirReport')
+     }
+
      render() {
           const { navigate } = this.props.navigation
           return (
@@ -86,11 +92,13 @@ class MontirGetOrder extends Component {
                        </Card>
                          <Button block success  style={styles.AcceptOrder}
                           onPress= { 
-                            (input) => this.props.completeOrder(this.state.choosenMechanic) 
+                            (input) => this.onAccept(this.state.choosenMechanic) 
                           }>
                                <Text style={styles.TextStyle}> Accept </Text>
                          </Button>
-                         <Button block danger style={styles.DeclineOrder}>
+                         <Button block danger style={styles.DeclineOrder}
+                          onPress= {navigate('MontirOnline')}
+                         >
                               <Text style={styles.TextStyle}> Decline </Text>
                          </Button>
                   </Content>

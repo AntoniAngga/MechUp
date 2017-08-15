@@ -183,6 +183,7 @@ export const searchMontirInDistance = data => {
     .then( res => {
       console.log(data, res.data, 'ini data yang mo dipake');
      in_distance_mechanic = res.data.filter(row => {
+       console.log(+row.lat, +row.long, +data[0].lat_cust, +data[0].long_cust, "distance count");
         return distance_count(+row.lat, +row.long, +data[0].lat_cust, +data[0].long_cust) <= 10
       })
     })
@@ -225,7 +226,7 @@ export const fullFillFirebase = (mech_rows, data_order) => {
     })
     .then(() => {
       firebase.database()
-      .ref(`order/orderID:${data_order[0].id}/status`)
+      .ref(`order/orderID:${data_order[0].order_id}/status`)
       .set('waiting to be accepted')
     })
   }
@@ -241,7 +242,7 @@ export const completeOrder = data => {
       dispatch(completeOrderStatus(results.data))
     })
     .catch ( err => {
-      console.log(err);
+      console.log(err,'ini di complete order');
     })
   }
 } 
@@ -253,7 +254,7 @@ export const completeOrderStatus = data => {
       status: 'accepted'
     })
     .then( results => {
-      console.log(results, 'ini hasil addOrder');
+      console.log(results, 'ini hasil complte');
       dispatch(getFinalOrder(data))
     })
     .catch ( err => {
@@ -279,16 +280,17 @@ export const toReduxOrder = data => {
   return {
     type: 'UPDATE_TO_FINAL',
     payload: {
-      ['final'+data[0].order_id]: data[0]
+      ['final']: data[0]
     }
   }
 }
 
 export const toReduxOrderMontir = data => {
+  console.log(data);
   return {
     type: 'UPDATE_TO_FINAL',
     payload: {
-      ['final'+data.id]: data
+      ['final']: data
     }
   }
 }

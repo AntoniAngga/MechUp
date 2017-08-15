@@ -18,6 +18,7 @@ import { connect } from 'react-redux'
 import { StyleSheet, ScrollView, View, Text, TextInput, Image } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 
+import firebase from '../config/FirebaseConfig'
 import {server_url, idLoggedMechanic, toReduxOrderMontir} from '../actions'
 
 const Online = require('../images/online.png')
@@ -46,24 +47,57 @@ class MontirOnline extends Component {
              lat: position.coords.latitude,
              long: position.coords.longitude
            })
-           .then(res => {
-             console.log('abis axios', res.data);
+           .then(() => {
+             //Pertama mau GET login auth by mechanic id
+             axios.put(server_url+'/auth/mechanic/update_status/'+idLoggedMechanic[0].id, {
+              lat: position.coords.latitude,
+              long: position.coords.longitude,
+              status: "Found"
+             })
+             .then(data => {
+              //  this.watchId = navigator.geolocation.watchPosition(
+              //    (position) => {
+              //      axios.get(server_url+'/api/order/mechanic/'+idLoggedMechanic[0].id_mechanic)
+              //      .then(res => {
+              //        this.props.toReduxOrder(res.data[0])
+              //        console.log(res.data,'ini data di watch');
+              //      })
+              //      .catch(err => {
+              //        console.log(err)
+              //      })
+              //    },
+              //    (error) => this.setState({ error: error.message }),
+              //    { distanceFilter: 10 },
+              //  );
+               const { navigate } = this.props.navigation
+               axios.get(server_url+'/api/order/mechanic/'+idLoggedMechanic[0].id_mechanic)
+               .then( result => {
+                 firebase.database()
+                 .ref(`order`)
+                 .on('value', (snapshot) => {
+                   alert('ada orderan')
+                   //tambah sms jika sudah bisa
+                   console.log('inside snapshot', snapshot);
+                   navigate('MontirGetOrder')
+                 })
+               })
+               .catch( err => {
+                 console.log(err);
+               })
+
+             })
+             .catch(err => {
+                console.log(err,"ini error nya put /auth/mechanic/role")
+             })
+           })
+           .catch(err => {
+             console.log(err, "ini errpr nya Put /api/mechanic")
            })
          },
          (error) => this.setState({ error: error.message }),
        )
        
-      this.watchId = navigator.geolocation.watchPosition(
-        (position) => {
-          axios.get(server_url+'/api/order/mechanic/'+idLoggedMechanic[0].id_mechanic)
-          .then(res => {
-            this.props.toReduxOrder(res.data[0])
-            console.log(data,'ini data di watch');
-          })
-        },
-        (error) => this.setState({ error: error.message }),
-        { distanceFilter: 10 },
-      );
+      
      }
 
      componentWillUnmount() {

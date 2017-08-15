@@ -31,8 +31,8 @@ class MyApp extends React.Component {
 
     this.state = {
       region: {
-        latitude: +this.props.mapping.final3.lat_mech || LATITUDE,
-        longitude: +this.props.mapping.final3.long_mech || LONGITUDE,
+        latitude: +this.props.mapping.final.lat_mech || LATITUDE,
+        longitude: +this.props.mapping.final.long_mech || LONGITUDE,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
@@ -63,10 +63,10 @@ class MyApp extends React.Component {
     }
   
   componentDidMount() {
-    let latitudeMech = this.props.mapping.final3.lat_mech
-    let latitudeCust = this.props.mapping.final3.lat_cust
-    let longitudeMech = this.props.mapping.final3.long_mech
-    let longitudeCust = this.props.mapping.final3.long_cust
+    let latitudeMech = +this.props.mapping.final.lat_mech
+    let latitudeCust = +this.props.mapping.final.lat_cust
+    let longitudeMech = +this.props.mapping.final.long_mech
+    let longitudeCust = +this.props.mapping.final.long_cust
     this.state.markers.push({
       coordinate: {
       latitude: +latitudeMech,

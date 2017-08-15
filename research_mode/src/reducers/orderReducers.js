@@ -1,6 +1,6 @@
 const initialState = {
   data_order: {
-    final1: {
+    final: {
       lat: ''
     }
   }
