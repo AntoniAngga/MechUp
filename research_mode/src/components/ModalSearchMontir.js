@@ -8,6 +8,7 @@ import {
   Image,
   Easing
 } from 'react-native'
+import firebase from '../config/FirebaseConfig'
 import { Card, CardSection, Input, Button } from './common';
 
 
@@ -20,6 +21,17 @@ class ModalSearchMontir extends Component {
   }
   componentDidMount () {
     this.spin()
+    firebase.database()
+    .ref(`order/orderID/status`)
+    .on('value', (snapshot) => {
+      console.log(snapshot);
+      if(snapshot._value == 'accepted') {
+        navigate('ModalDetailMontir')
+      }
+      else if (snapshot._value == 'rejected') {
+        navigate('MainMontir')
+      }
+    })
   }
   spin () {
     this.spinValue.setValue(0)

@@ -63,6 +63,9 @@ class MontirGetOrder extends Component {
      onAccept () {
         const { navigate } = this.props.navigation;
         this.props.completeOrder(this.state.data_order);
+        firebase.database()
+        .ref(`order/orderID/status`)
+        .set('accepted')
         navigate('MontirReport')
      }
 
@@ -124,12 +127,12 @@ class MontirGetOrder extends Component {
                                 <CardSection>
                                    <Text>Lokasi : {this.state.data_order.cust_address} </Text>
                                 </CardSection>
-                              //   <CardSection>
-                              //      <Text>Car Problem</Text>
-                              //   </CardSection>
-                              //   <ListItem>
-                              //      <Text style={{ color: '#fe5621' }}>Mesin tidak bisa di stater</Text>
-                              //   </ListItem>
+                                <CardSection>
+                                   <Text>Car Problem</Text>
+                                </CardSection>
+                                <ListItem>
+                                   <Text style={{ color: '#fe5621' }}>Mesin tidak bisa di stater</Text>
+                                </ListItem>
                           </List>
                        </Card>
                          <Button block success  style={styles.AcceptOrder}

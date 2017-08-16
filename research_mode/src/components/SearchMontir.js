@@ -64,7 +64,9 @@ class SearchMontir extends Component {
   }
 
   onSeachPress(data) {
+    const { navigate } = this.props.navigation    
     this.props.addOrder(data)
+    navigate('ModalSearchMontir')
   }
 
   render() {
@@ -98,11 +100,6 @@ class SearchMontir extends Component {
                >
                      <Text style={styles.TextStyle}> Search Mechanic Now </Text>
                </Button>
-               </CardSection>
-               <CardSection>
-                    <Button>
-                    <Text style={ styles.styleText } onPress= { () => navigate('ModalSearchMontir')}>SearchMontir</Text>
-                    </Button>
                </CardSection>
 
           </Card>
