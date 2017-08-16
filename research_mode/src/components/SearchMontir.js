@@ -33,6 +33,7 @@ class SearchMontir extends Component {
         position: ''
       }
   }
+  
   static navigationOptions = {
    title: 'Need Help',
    headerTitleStyle: {
@@ -54,7 +55,7 @@ class SearchMontir extends Component {
           longitude: position.coords.longitude
         }
         this.setState({position: costumerPos})
-        alert('koq ngg bisa')
+        // alert('koq ngg bisa')
         console.log(this.state, 'coba liat state');
       },
       (error) => this.setState({ error: error.message }),

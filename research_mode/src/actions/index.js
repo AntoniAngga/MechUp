@@ -6,6 +6,7 @@ import { NavigationActions } from 'react-navigation'
 
 export const server_url = 'http://mechup-dev.us-west-2.elasticbeanstalk.com/'
 export let idLoggedMechanic = ''
+export let currentOrder = ''
 // export const server_url = 'http://localhost:3000'
 
 // ini untuk Register dan login actions
@@ -153,9 +154,9 @@ export const getOrderById = (data) => {
 
 export const searchMontir = data => {
   return (dispatch) => {
-    console.log(data);
+    currentOrder = data[0].order_id
     firebase.database()
-    .ref(`order/orderID:${data[0].order_id}/costumerId:${data[0].cust_id}`)
+    .ref(`order/orderID/costumerId:${data[0].cust_id}`)
     .set({
       order_id: data[0].order_id,
       name: data[0].cust_name
@@ -163,7 +164,7 @@ export const searchMontir = data => {
     .then(() => {
       // alert('masuk then')
       firebase.database()
-      .ref(`order/orderID:${data[0].order_id}/status`)
+      .ref(`order/orderID/status`)
       .set('searching')
     })
     .then(() => {
@@ -218,15 +219,18 @@ export const fullFillFirebase = (mech_rows, data_order) => {
   return (dispatch) => {
     console.log(data_order);
     firebase.database()
-    .ref(`order/orderID:${data_order[0].order_id}/mechanicId:${mech_rows.id}`)
+    .ref(`order/orderID/mechanicId:${mech_rows.id}`)
     .set({
       order_id: data_order[0].order_id,
       name: mech_rows.name
     })
     .then(() => {
       firebase.database()
-      .ref(`order/orderID:${data_order[0].order_id}/status`)
+      .ref(`order/orderID/status`)
       .set('waiting to be accepted')
+      .then(() => {
+        dispatch(toReduxOrderMontir(data_order[0]))
+      })
     })
   }
 }

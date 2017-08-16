@@ -74,9 +74,9 @@ class AddCar extends Component {
                              placeholder="2015"
                            />
                          </CardSection>
-                         // <CardSection style={{alignItems: 'center', height: 250}}>
-                         //      <Image style={{ resizeMode:"contain", flex: 1 }} source={Lamborgini}></Image>
-                         // </CardSection>
+                          <CardSection style={{alignItems: 'center', height: 250}}>
+                               <Image style={{ resizeMode:"contain", flex: 1 }} source={Lamborgini}></Image>
+                          </CardSection>
                          <CardSection>
                               <Button block success style={styles.AddCar} onPress={ () => navigate('MainCustomer') }>
                                     <Text style={styles.TextStyle }>Add Car</Text>

@@ -19,7 +19,7 @@ import { StyleSheet, ScrollView, View, Text, TextInput, Image } from 'react-nati
 import { NavigationActions } from 'react-navigation'
 
 import firebase from '../config/FirebaseConfig'
-import {server_url, idLoggedMechanic, toReduxOrderMontir} from '../actions'
+import {server_url, idLoggedMechanic, toReduxOrderMontir, currentOrder} from '../actions'
 
 const Online = require('../images/online.png')
 
@@ -82,29 +82,29 @@ class MontirOnline extends Component {
        )
      }
 
-     componentWillUpdate(){
+     componentWillMount(){
       const { navigate } = this.props.navigation
-      axios.get(server_url+'/api/order/mechanic/'+idLoggedMechanic[0].id_mechanic)
+      const montirId = idLoggedMechanic[0].id_mechanic
+      axios.get(server_url+'/api/order/')
       .then( result => {
-        if(result.data.length >= 1){
          firebase.database()
-         .ref(`order`)
+         .ref(`order/orderID/status`)
          .on('value', (snapshot) => {
-          //  alert('ada orderan')
-           axios.post(server_url+'/send/sms',{
-             to: '6281294373359',
-             text: 'You got an order, please check your application'
-           })
-           console.log('inside snapshot', snapshot);
-           navigate('MontirGetOrder')
+           console.log(snapshot);
+           if(snapshot._value == 'waiting to be accepted') {
+             axios.post(server_url+'/send/sms',{
+               to: '6281294373359',
+               text: 'You got an order, please check your application'
+             })
+             navigate('MontirGetOrder')
+           }
+           else {
+             navigate('MontirOnline')
+           }
          })
-        }
-        else {
-          navigate('MontirOnline')
-        }
-        
       })
       .catch( err => {
+        console.log(this.props.mapping.order_id);
         console.log(err);
       })
      }
@@ -146,7 +146,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   console.log(state, 'ini state');
   return {
-    mapping: state.orderReducers.data_order
+    mapping: state.orderReducers.data_order.final
   }
 }
 
