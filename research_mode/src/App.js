@@ -11,6 +11,8 @@ import MontirReport from './components/MontirReport'
 import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
 import LoginFormMechanic from './components/LoginFormMechanic'
+import ModalSearchMontir from './components/ModalSearchMontir'
+import ModalDetailMontir from './components/ModalDetailMontir'
 
 const MainCustomer = DrawerNavigator({
      Customer: { screen: AddCar },
@@ -31,6 +33,7 @@ const MainMontir = DrawerNavigator({
 })
 
 export default App = StackNavigator ({
+     ModalSearchMontir: { screen: ModalSearchMontir },
      Login: { screen: Login },
      MainCustomer: { screen: MainCustomer },
      AddCar: { screen: AddCar },
@@ -40,5 +43,6 @@ export default App = StackNavigator ({
      MontirReport: { screen: MontirReport },
      LoginForm: {screen: LoginForm },
      LoginFormMechanic: {screen: LoginFormMechanic },
-     RegisterForm: {screen: RegisterForm }
+     RegisterForm: {screen: RegisterForm },
+     ModalDetailMontir: { screen: ModalDetailMontir }
 })

@@ -5,7 +5,7 @@ import { Card, CardSection, Input, Button, Spinner } from './common';
 import { connect } from 'react-redux'
 import { login_customer } from '../actions'
 
-class LoginForm extends Component {     
+class LoginForm extends Component {
    constructor(props) {
       super(props)
       this.state = {
@@ -69,10 +69,10 @@ class LoginForm extends Component {
       <Card>
         <CardSection>
           <Input
-            label="Email"
-            placeholder="email@gmail.com"
+            label="Username"
+            placeholder="username"
             onChangeText={(e) => this.onUsernameChange(e)}
-            value={this.props.email}
+            value={this.props.username}
           />
         </CardSection>
 

@@ -18,7 +18,9 @@ class Login extends Component {
          fontSize: 28
        },
        headerStyle: {
-         backgroundColor: '#f0a53d'
+         backgroundColor: '#f0a53d',
+         borderColor: '#fe5621'
+
        }
      }
 
@@ -29,7 +31,7 @@ class Login extends Component {
                <Container>
                   <Content>
                   <Card>
-                       <CardItem style={{alignItems: 'center', height: 250}}>
+                       <CardItem style={{alignItems: 'center', height: 300}}>
                             <Image style={{ resizeMode:"contain", flex: 1 ,  marginTop: 15 }} source={Mechanic}></Image>
                        </CardItem>
                   </Card>
@@ -47,10 +49,10 @@ const styles = {
     fontSize: 22
   },
   LoginCustomer:{
-     marginTop: 55,
+     marginTop: 40,
      borderWidth: 1,
     borderRadius: 6,
-    borderColor: '#ddd',
+    borderColor: '#009587',
     borderBottomWidth: 0,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -59,23 +61,23 @@ const styles = {
     elevation: 1,
     marginLeft: 5,
     marginRight: 5,
-    paddingTop: 10,
+    paddingTop: 8,
     paddingBottom: 10
   },
   LoginMontir: {
-       borderWidth: 1,
-      borderRadius: 6,
-      borderColor: '#ddd',
-      borderBottomWidth: 0,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.3,
-      shadowRadius: 2,
-      elevation: 1,
-      marginLeft: 5,
-      marginRight: 5,
-      marginTop: 30
-  }
+        borderWidth: 1,
+       borderRadius: 6,
+       borderColor: '#fe5621',
+       borderBottomWidth: 0,
+       shadowColor: '#000',
+       shadowOffset: { width: 0, height: 2 },
+       shadowOpacity: 0.3,
+       shadowRadius: 2,
+       elevation: 1,
+       marginLeft: 5,
+       marginRight: 5,
+       marginTop: 20
+   }
 };
 
 export default Login

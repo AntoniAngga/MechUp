@@ -13,7 +13,7 @@ class LoginForm extends Component {
        password: ''
      }
   }
-  
+
   static navigationOptions = {
      title: 'Form Login Montir',
      headerTitleStyle: {
@@ -59,10 +59,10 @@ class LoginForm extends Component {
       <Card>
         <CardSection>
           <Input
-            label="Email"
-            placeholder="email@gmail.com"
+            label="Username"
+            placeholder="username"
             onChangeText={(e) => this.onUsernameChange(e)}
-            value={this.props.email}
+            value={this.props.username}
           />
         </CardSection>
 

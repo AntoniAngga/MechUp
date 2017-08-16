@@ -3,9 +3,6 @@ import React, { Component } from 'react'
 import {
      Container,
      Content,
-     Input,
-     Button,
-     Card,
      CardItem,
      Icon,
      InputGroup,
@@ -13,14 +10,18 @@ import {
      ListItem
 } from 'native-base'
 import { connect } from 'react-redux'
-import { StyleSheet, ScrollView, View, Text, TextInput, Image } from 'react-native'
+import { TouchableOpacity, StyleSheet, ScrollView, View, Text, TextInput, Image } from 'react-native'
+import { Card, CardSection, Input, Button } from './common';
+import Modal from 'react-native-simple-modal';
+
+
 import { NavigationActions } from 'react-navigation'
 import axios from 'axios'
 
 import firebase from '../config/FirebaseConfig'
 import { completeOrder, idLoggedMechanic, server_url } from '../actions'
 
-class MontirGetOrder extends Component {  
+class MontirGetOrder extends Component {
       constructor() {
         super()
         this.state= {
@@ -28,7 +29,7 @@ class MontirGetOrder extends Component {
           data_order: {}
         }
       }
-      
+
      static navigationOptions = {
        title: 'Need to Repair',
        headerTitleStyle: {
@@ -41,7 +42,7 @@ class MontirGetOrder extends Component {
          backgroundColor: '#f0a53d'
        }
      }
-     
+
      componentDidMount() {
        axios.get(server_url+'/api/order/mechanic/'+idLoggedMechanic[0].id_mechanic)
        .then( res => {
@@ -68,39 +69,76 @@ class MontirGetOrder extends Component {
      render() {
           const { navigate } = this.props.navigation
           return (
-               <Container>
+               // <Container>
+               //    <Content>
+               //         <Card>
+               //              <List>
+               //                  <ListItem itemDivider>
+               //                     <Text>Customer Name : {this.state.data_order.cust_name} </Text>
+               //                  </ListItem>
+               //                  <ListItem itemDivider>
+               //                     <Text>Car Merk : {this.state.data_order.merek} </Text>
+               //                  </ListItem>
+               //                  <ListItem itemDivider>
+               //                     <Text>Car Type : {this.state.data_order.type} </Text>
+               //                  </ListItem>
+               //                  <ListItem itemDivider>
+               //                     <Text>Lokasi : {this.state.data_order.cust_address} </Text>
+               //                  </ListItem>
+               //                  { <ListItem itemDivider>
+               //                     <Text>Car Problem</Text>
+               //                  </ListItem>
+               //                  <ListItem>
+               //                     <Text>Mesin tidak bisa di stater</Text>
+               //                  </ListItem>
+               //            </List>
+               //         </Card>
+               //           <Button block success  style={styles.AcceptOrder}
+               //            onPress= {
+               //              () => this.onAccept()
+               //            }>
+               //                 <Text style={styles.TextStyle}> Accept </Text>
+               //           </Button>
+               //           <Button block danger style={styles.DeclineOrder}
+               //            onPress= {navigate('MontirOnline')}
+               //           >
+               //                <Text style={styles.TextStyle}> Decline </Text>
+               //           </Button>
+               //    </Content>
+               //  </Container>
+
+
+                <Container>
                   <Content>
                        <Card>
                             <List>
-                                <ListItem itemDivider>
+                                <CardSection>
                                    <Text>Customer Name : {this.state.data_order.cust_name} </Text>
-                                </ListItem>
-                                <ListItem itemDivider>
+                                </CardSection>
+                                <CardSection>
                                    <Text>Car Merk : {this.state.data_order.merek} </Text>
-                                </ListItem>
-                                <ListItem itemDivider>
+                                </CardSection>
+                                <CardSection>
                                    <Text>Car Type : {this.state.data_order.type} </Text>
-                                </ListItem>
-                                <ListItem itemDivider>
+                                </CardSection>
+                                <CardSection>
                                    <Text>Lokasi : {this.state.data_order.cust_address} </Text>
-                                </ListItem>
-                                {/* <ListItem itemDivider>
-                                   <Text>Car Problem</Text>
-                                </ListItem>
-                                <ListItem>
-                                   <Text>Mesin tidak bisa di stater</Text>
-                                </ListItem> */}
+                                </CardSection>
+                              //   <CardSection>
+                              //      <Text>Car Problem</Text>
+                              //   </CardSection>
+                              //   <ListItem>
+                              //      <Text style={{ color: '#fe5621' }}>Mesin tidak bisa di stater</Text>
+                              //   </ListItem>
                           </List>
                        </Card>
                          <Button block success  style={styles.AcceptOrder}
-                          onPress= { 
-                            () => this.onAccept() 
-                          }>
+                         onPress= {
+                          () => this.onAccept()
+                         }>
                                <Text style={styles.TextStyle}> Accept </Text>
                          </Button>
-                         <Button block danger style={styles.DeclineOrder}
-                          onPress= {navigate('MontirOnline')}
-                         >
+                         <Button block danger style={styles.DeclineOrder} onPress= {navigate('MontirOnline')} >
                               <Text style={styles.TextStyle}> Decline </Text>
                          </Button>
                   </Content>

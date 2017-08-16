@@ -5,8 +5,6 @@ import {
      Form,
      Item,
      Input,
-     Button,
-     Card,
      CardItem,
      Icon,
      InputGroup
@@ -14,14 +12,16 @@ import {
 import { StyleSheet, ScrollView, View, Text, TextInput, Image } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
+import { Card, CardSection, Button } from './common';
+
 
 const Petajakarta = require('../images/petajakarta.jpg')
 import MyApp from './Maps'
 import MapsContoh from './MapsContoh'
-import { 
+import {
   getCostumerFromDB,
   searchMontir,
-  addOrder 
+  addOrder
 } from '../actions'
 
 
@@ -33,7 +33,7 @@ class SearchMontir extends Component {
         position: ''
       }
   }
-  
+
   static navigationOptions = {
    title: 'Need Help',
    headerTitleStyle: {
@@ -46,7 +46,7 @@ class SearchMontir extends Component {
      backgroundColor: '#f0a53d'
    }
   }
-  
+
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -62,44 +62,50 @@ class SearchMontir extends Component {
       // { enableHighAccuracy: false, timeout: 5000, maximumAge: 1000 },
     );
   }
-  
+
   onSeachPress(data) {
     this.props.addOrder(data)
   }
-  
+
   render() {
+       const { navigate } = this.props.navigation
     return (
      <Container>
         <Content>
           <Card>
-            <InputGroup borderType='rounded' >
-              <Icon name='ios-home' style={{color:'#384850'}}/>
-              <Input placeholder='Type your place here'/>
-            </InputGroup>
+
             <CardItem style={{alignItems: 'center', height: 350}}>
                  <MyApp />
             </CardItem>
 
-            <Form>
-              <Item>
-                 <Input style={{ height: 100 }} placeholder="  Type your car problem here !! " />
-              </Item>
-            </Form>
+               <CardSection>
+                      <Input
+                        placeholder="Type your car problem here !!"
+                      />
+               </CardSection>
+               <CardSection>
+               <Button block success style={styles.SearchMontir}
+                 onPress= {
+                   (data) => this.onSeachPress({
+                     id_customer: 1,
+                     id_vehicle: 1,
+                     status: 'open',
+                     lat_cust: this.state.position.latitude,
+                     long_cust: this.state.position.longitude
+                   })
+                   //muncul modal loading
+                 }
+               >
+                     <Text style={styles.TextStyle}> Search Mechanic Now </Text>
+               </Button>
+               </CardSection>
+               <CardSection>
+                    <Button>
+                    <Text style={ styles.styleText } onPress= { () => navigate('ModalSearchMontir')}>SearchMontir</Text>
+                    </Button>
+               </CardSection>
+
           </Card>
-          <Button block success style={styles.SearchMontir}
-            onPress= {
-              (data) => this.onSeachPress({
-                id_customer: 1,
-                id_vehicle: 1,
-                status: 'open',
-                lat_cust: this.state.position.latitude,
-                long_cust: this.state.position.longitude
-              })
-              //muncul modal loading
-            }
-          >
-                <Text style={styles.TextStyle}> Search Mechanic Now </Text>
-          </Button>
         </Content>
       </Container>
     )
