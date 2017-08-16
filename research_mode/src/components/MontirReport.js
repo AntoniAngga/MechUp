@@ -90,7 +90,7 @@ class MontirReport extends Component {
                      </List>
 
                           <CardItem style={{alignItems: 'center', height: 180}}>
-                            <MyApp />
+                            <MyApp2 />
                           </CardItem>
                      </Card>
                          <Button block success onPress={this.finish_data()}>

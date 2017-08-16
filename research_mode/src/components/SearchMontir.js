@@ -97,7 +97,7 @@ class SearchMontir extends Component {
               //muncul modal loading
             }
           >
-                <Text style={styles.TextStyle}> Search Monthree Now </Text>
+                <Text style={styles.TextStyle}> Search Mechanic Now </Text>
           </Button>
         </Content>
       </Container>

@@ -235,7 +235,7 @@ export const fullFillFirebase = (mech_rows, data_order) => {
 export const completeOrder = data => {
   console.log(data.id, 'ini di data');
   return (dispatch) => {  
-    axios.get(server_url+'/api/order/mechanic/'+data.id)
+    axios.get(server_url+'/api/order/mechanic/'+data.mech_id)
     .then( results => {
       console.log(results, 'ini hasil addOrder');
       dispatch(completeOrderStatus(results.data))
