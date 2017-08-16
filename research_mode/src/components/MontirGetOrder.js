@@ -24,7 +24,8 @@ class MontirGetOrder extends Component {
       constructor() {
         super()
         this.state= {
-          choosenMechanic: ''
+          choosenMechanic: '',
+          data_order: {}
         }
       }
       
@@ -41,20 +42,21 @@ class MontirGetOrder extends Component {
        }
      }
      
-     componentDidMount() {       
-         axios.get(server_url+'/api/mechanic/'+idLoggedMechanic[0].id_mechanic)
-         .then( res => {
-           this.setState({'choosenMechanic': res.data})
-           console.log(this.state.choosenMechanic, 'ini choosenMechanic');
-           firebase.database()
-           .ref(`order/orderID:${this.state.choosenMechanic.id}/status`)
-           .on('value', (snapshot) => {
-             console.log('inside snapshot', snapshot.val());
-           })
+     componentDidMount() {
+       axios.get(server_url+'/api/order/mechanic/'+idLoggedMechanic[0].id_mechanic)
+       .then( res => {
+         axios.get(server_url+'/api/order/'+res.data[0].id)
+         .then(result => {
+           this.setState({data_order : result.data[0]});
+           console.log(this.state.data_order)
          })
-         .catch( err => {
-           console.log(err);
+         .catch(err => {
+           console.log(err)
          })
+       })
+       .catch(err => {
+         console.log(err)
+       })
      }
 
      onAccept (input) {
@@ -71,23 +73,23 @@ class MontirGetOrder extends Component {
                        <Card>
                             <List>
                                 <ListItem itemDivider>
-                                   <Text>Customer Name : Simon Mignolet </Text>
+                                   <Text>Customer Name : {this.state.data_order.cust_name} </Text>
                                 </ListItem>
                                 <ListItem itemDivider>
-                                   <Text>Car Merk : Toyota </Text>
+                                   <Text>Car Merk : {this.state.data_order.merek} </Text>
                                 </ListItem>
                                 <ListItem itemDivider>
-                                   <Text>Car Type : Avanza </Text>
+                                   <Text>Car Type : {this.state.data_order.type} </Text>
                                 </ListItem>
                                 <ListItem itemDivider>
-                                   <Text>Lokasi : JL.Pondok Indah </Text>
+                                   <Text>Lokasi : {this.state.data_order.cust_address} </Text>
                                 </ListItem>
-                                <ListItem itemDivider>
+                                {/* <ListItem itemDivider>
                                    <Text>Car Problem</Text>
                                 </ListItem>
                                 <ListItem>
                                    <Text>Mesin tidak bisa di stater</Text>
-                                </ListItem>
+                                </ListItem> */}
                           </List>
                        </Card>
                          <Button block success  style={styles.AcceptOrder}

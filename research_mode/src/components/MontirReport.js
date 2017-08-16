@@ -13,7 +13,9 @@ import { View, Text, Image } from 'react-native'
 
 import MyApp from './MapsContoh'
 import MyApp2 from './MapsContohcopy'
+import axios from 'axios'
 const PetaJakarta = require('../images/petajakarta.jpg')
+import { completeOrder, idLoggedMechanic, server_url } from '../actions'
 
 class MontirReport extends Component {
      static navigationOptions = {
@@ -29,30 +31,54 @@ class MontirReport extends Component {
        }
      }
 
+     constructor() {
+      super()
+      this.state= {
+        data_order: {}
+      }
+    }
+
+     componentDidMount() {
+      axios.get(server_url+'/api/order/mechanic/'+idLoggedMechanic[0].id_mechanic)
+      .then( res => {
+        axios.get(server_url+'/api/order/'+res.data[0].id)
+        .then(result => {
+          this.setState({data_order : result.data[0]});
+          console.log(this.state.data_order)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+
      render() {
           return (
                <Container>
                   <Content>
                    <Card>
                        <List>
-                      <ListItem itemDivider>
-                         <Text>Customer Name : Simon Mignolet </Text>
+                        <ListItem itemDivider>
+                        <Text>Customer Name : {this.state.data_order.cust_name} </Text>
                       </ListItem>
                       <ListItem itemDivider>
-                         <Text>Car Merk : Toyota </Text>
+                        <Text>Car Merk : {this.state.data_order.merek} </Text>
                       </ListItem>
                       <ListItem itemDivider>
-                         <Text>Car Type : Avanza </Text>
+                        <Text>Car Type : {this.state.data_order.type} </Text>
                       </ListItem>
                       <ListItem itemDivider>
-                         <Text>Lokasi : JL.Pondok Indah </Text>
+                        <Text>Lokasi : {this.state.data_order.cust_address} </Text>
                       </ListItem>
-                      <ListItem itemDivider>
+                      {/* <ListItem itemDivider>
                          <Text>Car Problem</Text>
                       </ListItem>
                       <ListItem>
                          <Text>Mesin tidak bisa di stater</Text>
-                      </ListItem>
+                      </ListItem> */}
                      </List>
 
                           <CardItem style={{alignItems: 'center', height: 180}}>

@@ -142,7 +142,7 @@ class MyApp extends React.Component {
           initialRegion={this.state.region}
         >
        
-        <MapView.Marker
+        {/* <MapView.Marker
         coordinate={{
          latitude: +this.props.mapping.final.lat_cust,
          longitude: +this.props.mapping.final.long_cust
@@ -153,7 +153,7 @@ class MyApp extends React.Component {
               latitude: +this.props.mapping.final.lat_mech,
               longitude: +this.props.mapping.final.long_mech
              }}
-           />
+           /> */}
 
         <MapView.Polyline 
             coordinates={this.state.coords}

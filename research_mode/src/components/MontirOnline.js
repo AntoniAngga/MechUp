@@ -55,30 +55,30 @@ class MontirOnline extends Component {
               status: "Found"
              })
              .then(data => {
-              //  this.watchId = navigator.geolocation.watchPosition(
-              //    (position) => {
-              //      axios.get(server_url+'/api/order/mechanic/'+idLoggedMechanic[0].id_mechanic)
-              //      .then(res => {
-              //        this.props.toReduxOrder(res.data[0])
-              //        console.log(res.data,'ini data di watch');
-              //      })
-              //      .catch(err => {
-              //        console.log(err)
-              //      })
-              //    },
-              //    (error) => this.setState({ error: error.message }),
-              //    { distanceFilter: 10 },
-              //  );
+                this.watchId = navigator.geolocation.watchPosition(
+                  (position) => {
+                    axios.get(server_url+'/api/order/mechanic/'+idLoggedMechanic[0].id_mechanic)
+                    .then(res => {
+                      this.props.toReduxOrder(res.data[0])
+                      console.log(res.data,'ini data di watch');
+                    })
+                    .catch(err => {
+                      console.log(err)
+                    })
+                  },
+                  (error) => this.setState({ error: error.message }),
+                  { distanceFilter: 10 },
+                );
                const { navigate } = this.props.navigation
                axios.get(server_url+'/api/order/mechanic/'+idLoggedMechanic[0].id_mechanic)
                .then( result => {
                  firebase.database()
                  .ref(`order`)
                  .on('value', (snapshot) => {
-                   alert('ada orderan')
+                  //  alert('ada orderan')
                    axios.post(server_url+'/send/sms',{
-                    //  to: idLoggedMechanic[0].phone_number,//nomor hp customer
-                    //  text: idLoggedM//Text
+                     to: '6281294373359',
+                     text: 'You got an order, please check your application'
                    })
                    console.log('inside snapshot', snapshot);
                    navigate('MontirGetOrder')

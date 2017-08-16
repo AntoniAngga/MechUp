@@ -35,9 +35,8 @@ export const register_customer = data => {
     })
   }
 }
-
 export const login_mechanic = data => {
-  alert('mau login mechanic')
+  // alert('mau login mechanic')
   return (dispatch, getState) => {  
     axios.post(server_url+'/auth/mechanic/login', {
       username: data.username,
@@ -49,7 +48,7 @@ export const login_mechanic = data => {
       dispatch(NavigationActions.navigate({ routeName: 'MainMontir' }))
     })
     .catch ( err => {
-      alert('error')
+      // alert('error')
       console.log(err);
       dispatch(NavigationActions.navigate({ routeName: 'LoginFormMechanic' }))
     })
@@ -114,7 +113,7 @@ export const addCar = data => {
   return (dispatch) => {  
     axios.post(server_url+'/api/vehicle', data)
     .then( data => {
-      alert('bisa')
+      // alert('bisa')
       return data;
     })
     .catch ( err => {
@@ -128,7 +127,7 @@ export const addOrder = data => {
   return (dispatch) => {  
     axios.post(server_url+'/api/order', data)
     .then( results => {
-      alert('bisa')
+      // alert('bisa')
       console.log(results, 'ini hasil addOrder');
       dispatch(getOrderById(results.data))
     })
@@ -162,7 +161,7 @@ export const searchMontir = data => {
       name: data[0].cust_name
     })
     .then(() => {
-      alert('masuk then')
+      // alert('masuk then')
       firebase.database()
       .ref(`order/orderID:${data[0].order_id}/status`)
       .set('searching')
@@ -205,7 +204,7 @@ export const getMechanicOnline = (mech_rows, data_order) => {
         id_mechanic: res.data.id
       })
       .then( () => {
-        alert('masuk sesudah put order')
+        // alert('masuk sesudah put order')
         dispatch(fullFillFirebase(res.data, data_order))
       })
     })
