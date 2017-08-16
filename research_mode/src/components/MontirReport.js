@@ -16,6 +16,8 @@ import MyApp2 from './MapsContohcopy'
 import axios from 'axios'
 const PetaJakarta = require('../images/petajakarta.jpg')
 import { completeOrder, idLoggedMechanic, server_url } from '../actions'
+import firebase from '../config/FirebaseConfig'
+import { NavigationActions } from 'react-navigation'
 
 class MontirReport extends Component {
      static navigationOptions = {
@@ -55,6 +57,12 @@ class MontirReport extends Component {
       })
     }
 
+    finish_data() {
+      firebase.database()
+      .ref('order').remove();
+      this.props.navigation.navigate("MontirOnline")
+    }
+
      render() {
           return (
                <Container>
@@ -85,7 +93,7 @@ class MontirReport extends Component {
                             <MyApp />
                           </CardItem>
                      </Card>
-                         <Button block success>
+                         <Button block success onPress={this.finish_data()}>
                                <Text> Finish </Text>
                          </Button>
                   </Content>

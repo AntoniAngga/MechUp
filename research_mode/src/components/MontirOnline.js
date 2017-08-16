@@ -69,25 +69,6 @@ class MontirOnline extends Component {
                   (error) => this.setState({ error: error.message }),
                   { distanceFilter: 10 },
                 );
-               const { navigate } = this.props.navigation
-               axios.get(server_url+'/api/order/mechanic/'+idLoggedMechanic[0].id_mechanic)
-               .then( result => {
-                 firebase.database()
-                 .ref(`order`)
-                 .on('value', (snapshot) => {
-                  //  alert('ada orderan')
-                   axios.post(server_url+'/send/sms',{
-                     to: '6281294373359',
-                     text: 'You got an order, please check your application'
-                   })
-                   console.log('inside snapshot', snapshot);
-                   navigate('MontirGetOrder')
-                 })
-               })
-               .catch( err => {
-                 console.log(err);
-               })
-
              })
              .catch(err => {
                 console.log(err,"ini error nya put /auth/mechanic/role")
@@ -99,8 +80,33 @@ class MontirOnline extends Component {
          },
          (error) => this.setState({ error: error.message }),
        )
-       
-      
+     }
+
+     componentWillUpdate(){
+      const { navigate } = this.props.navigation
+      axios.get(server_url+'/api/order/mechanic/'+idLoggedMechanic[0].id_mechanic)
+      .then( result => {
+        if(result.data.length >= 1){
+         firebase.database()
+         .ref(`order`)
+         .on('value', (snapshot) => {
+          //  alert('ada orderan')
+           axios.post(server_url+'/send/sms',{
+             to: '6281294373359',
+             text: 'You got an order, please check your application'
+           })
+           console.log('inside snapshot', snapshot);
+           navigate('MontirGetOrder')
+         })
+        }
+        else {
+          navigate('MontirOnline')
+        }
+        
+      })
+      .catch( err => {
+        console.log(err);
+      })
      }
 
      componentWillUnmount() {
