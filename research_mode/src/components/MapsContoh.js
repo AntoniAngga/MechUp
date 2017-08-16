@@ -141,15 +141,20 @@ class MyApp extends React.Component {
           style={styles.map}
           initialRegion={this.state.region}
         >
-        {
-        //   this.state.markers.map(marker => (
-        //   <MapView.Marker
-        //     title={marker.key}
-        //     key={marker.key}
-        //     coordinate={marker.coordinate}
-        //   />
-        // ))
-      }
+       
+        <MapView.Marker
+        coordinate={{
+         latitude: +this.props.mapping.final.lat_cust,
+         longitude: +this.props.mapping.final.long_cust
+        }}
+      />
+           <MapView.Marker
+             coordinate={{
+              latitude: +this.props.mapping.final.lat_mech,
+              longitude: +this.props.mapping.final.long_mech
+             }}
+           />
+
         <MapView.Polyline 
             coordinates={this.state.coords}
             strokeWidth={2}
@@ -157,7 +162,7 @@ class MyApp extends React.Component {
       </MapView>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          onPress={(origin, destination) => this.getDirectionsMaps(`${this.state.markers[0].coordinate.latitude},${this.state.markers[0].coordinate.longitude}`, `${this.state.markers[1].coordinate.latitude},${this.state.markers[1].coordinate.longitude}`)}
+          onPress={(origin, destination) => this.getDirectionsMaps(`${this.props.mapping.final.lat_mech},${this.props.mapping.final.long_mech}`, `${this.props.mapping.final.lat_cust},${this.props.mapping.final.long_cust}`)}
           style={[styles.bubble, styles.button]}
         >
           <Text style={styles.buttonText}>get direction</Text>

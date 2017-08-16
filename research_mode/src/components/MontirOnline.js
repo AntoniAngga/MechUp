@@ -76,7 +76,10 @@ class MontirOnline extends Component {
                  .ref(`order`)
                  .on('value', (snapshot) => {
                    alert('ada orderan')
-                   //tambah sms jika sudah bisa
+                   axios.post(server_url+'/send/sms',{
+                    //  to: idLoggedMechanic[0].phone_number,//nomor hp customer
+                    //  text: idLoggedM//Text
+                   })
                    console.log('inside snapshot', snapshot);
                    navigate('MontirGetOrder')
                  })
