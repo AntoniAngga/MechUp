@@ -21,38 +21,19 @@ const PetaJakarta = require('../images/petajakarta.jpg')
 const Online = require('../images/online.png')
 
 class MontirOnline extends Component {
+     constructor(props) {
+          super(props)
+     }
      state = {
           open : true,
           order : true
      }
 
-     static navigationOptions  =  {
-       title: 'Montir Status',
-     //   headerLeft: <Icon name="menu" onPress={ () => navigation.navigate("DrawerOpen")} />,
-     //   headerRight: <Icon name="menu" onPress={ () => navigation.navigate("Login")} />,
-       headerTitleStyle: {
-         color: '#fff',
-         justifyContent: 'center',
-         alignItems: 'center',
-         fontSize: 28
-       },
-       headerStyle: {
-         backgroundColor: '#f0a53d'
-       }
-     }
-
      render() {
           const { navigate } = this.props.navigation
           return (
-
-
                <Container>
                   <Content>
-                  <Left>
-                       <Button transparent onPress={ () => navigate("DrawerOpen")}>
-                       <Icon name="menu" />
-                       </Button>
-                  </Left>
                        <Card>
                               <CardSection style={{alignItems: 'center', height: 350, paddingTop: 60}}>
                                    <Image style={{ resizeMode:"contain", flex: 1 }} source={Online}></Image>

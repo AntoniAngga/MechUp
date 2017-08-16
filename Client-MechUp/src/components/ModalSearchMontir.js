@@ -61,7 +61,7 @@ class ModalSearchMontir extends Component {
                     <Text style={ styles.textSpin }>Pencarian Montir</Text>
                     <Text style={ styles.textTunggu } >Mohon tunggu Sebentar</Text>
                <CardSection>
-                    <Button onPress={ () => navigate('SearchMontir') }>
+                    <Button onPress={ () => navigate('MainCustomer') }>
                       Cancel
                     </Button>
                </CardSection>

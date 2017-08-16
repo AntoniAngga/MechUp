@@ -15,7 +15,7 @@ const PetaJakarta = require('../images/petajakarta.jpg')
 
 class MontirReport extends Component {
      state = {
-          open : false,
+          open : true,
           order : true
      }
      static navigationOptions = {
@@ -32,6 +32,7 @@ class MontirReport extends Component {
      }
 
      render() {
+          const { navigate } = this.props.navigation
           return (
                // <Container>
                //    <Content>
@@ -77,7 +78,7 @@ class MontirReport extends Component {
                     offset={this.state.offset}
                     open={this.state.open}
                     modalDidOpen={() => console.log('modal did open')}
-                    modalDidClose={() => this.setState({open: false })}
+                    modalDidClose={() => this.setState({open: true })}
                     style={{alignItems: 'center'}}>
                     <View>
                       <Card>
@@ -94,14 +95,17 @@ class MontirReport extends Component {
                       <Text> Car Type : Avanza </Text>
                       </CardSection>
                       <CardSection>
+                      <Text> Address : Jl.Pondok Indah </Text>
+                      </CardSection>
+                      <CardSection>
                       <Text> Direction : 2.5 km </Text>
                       </CardSection>
                       <CardSection style={{alignItems: 'center', height: 250}}>
                            <Image style={{ resizeMode:"contain", flex: 1 }} source={PetaJakarta}></Image>
                       </CardSection>
                            <CardSection>
-                                <Button onPress={() => this.setState({open: false})}>
-                                  Close
+                                <Button onPress= { () => navigate('MainMontir')} >
+                                  Finish
                                 </Button>
                            </CardSection>
                       </Card>
