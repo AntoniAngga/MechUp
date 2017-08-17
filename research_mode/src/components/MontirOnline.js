@@ -83,14 +83,13 @@ class MontirOnline extends Component {
 
      componentWillMount(){
       const { navigate } = this.props.navigation
-      const montirId = idLoggedMechanic[0].id_mechanic
       axios.get(server_url+'/api/order/')
       .then( result => {
          firebase.database()
-         .ref(`order/orderID/status`)
+         .ref(`mechanic_`+idLoggedMechanic[0].id_mechanic)
          .on('value', (snapshot) => {
-           console.log(snapshot);
-           if(snapshot._value == 'waiting to be accepted') {
+           console.log(snapshot, 'di montir');
+           if(snapshot._value.status == 'waiting') {
              axios.post(server_url+'/send/sms',{
                to: '6281294373359',
                text: 'You got an order, please check your application'
@@ -98,7 +97,7 @@ class MontirOnline extends Component {
              navigate('MontirGetOrder')
            }
            else {
-             navigate('MontirOnline')
+            //  navigate('MontirOnline')
            }
          })
       })

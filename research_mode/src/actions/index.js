@@ -46,6 +46,13 @@ export const login_mechanic = data => {
     .then( result => {
       console.log(result.data, 'di login mechanic');
       idLoggedMechanic = result.data
+      firebase.database()
+      .ref('mechanic_'+result.data[0].id_mechanic)
+      .set({
+        status: 'logged in',
+        user_id: null,
+        order_id: null
+      })
       dispatch(NavigationActions.navigate({ routeName: 'MainMontir' }))
     })
     .catch ( err => {
@@ -139,12 +146,19 @@ export const addOrder = data => {
   }
 } 
 
+const saveOrderToStore = data => {
+  return {
+    type:'SAVE_ORDER',
+    payload: data
+  }
+}
+
 export const getOrderById = (data) => {
   return (dispatch) => {
     axios.get(`${server_url}/api/order/${data.id}`)
     .then (results => {
       console.log(results.data);
-      dispatch(searchMontir(results.data))
+      dispatch(searchMontirInDistance(results.data))
     })
     .catch(err => {
       console.log(err);
@@ -152,29 +166,29 @@ export const getOrderById = (data) => {
   }
 }
 
-export const searchMontir = data => {
-  return (dispatch) => {
-    currentOrder = data[0].order_id
-    firebase.database()
-    .ref(`order/orderID/costumerId:${data[0].cust_id}`)
-    .set({
-      order_id: data[0].order_id,
-      name: data[0].cust_name
-    })
-    .then(() => {
-      // alert('masuk then')
-      firebase.database()
-      .ref(`order/orderID/status`)
-      .set('searching')
-    })
-    .then(() => {
-      dispatch(searchMontirInDistance(data))
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-} 
+// export const searchMontir = data => {
+//   return (dispatch) => {
+//     currentOrder = data[0].order_id
+//     firebase.database()
+//     .ref(`mechanic/costumerId:${data[0].cust_id}`)
+//     .set({
+//       order_id: data[0].order_id,
+//       name: data[0].cust_name
+//     })
+//     .then(() => {
+//       // alert('masuk then')
+//       firebase.database()
+//       .ref(`order/orderID/status`)
+//       .set('searching')
+//     })
+//     .then(() => {
+//       dispatch(searchMontirInDistance(data))
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     })
+//   }
+// } 
 
 export const searchMontirInDistance = data => {
   return (dispatch) => {
@@ -189,6 +203,13 @@ export const searchMontirInDistance = data => {
     })
     .then(()=> {
       console.log(in_distance_mechanic, 'tessssss');
+      firebase.database()
+      .ref('mechanic_'+in_distance_mechanic[0].id_mechanic)
+      .update({
+        order_id: data[0].order_id,
+        user_id: data[0].cust_id,
+        status: 'waiting'
+      })
       dispatch(getMechanicOnline(in_distance_mechanic, data))
     })
     .catch(err => {
@@ -205,8 +226,13 @@ export const getMechanicOnline = (mech_rows, data_order) => {
         id_mechanic: res.data.id
       })
       .then( () => {
+        axios.get(server_url+"/api/order/"+data_order[0].order_id)
+        .then( hasil => {
+          dispatch(saveOrderToStore(hasil.data[0]))
+          dispatch(toReduxOrder(data_order[0]))
+        })
         // alert('masuk sesudah put order')
-        dispatch(fullFillFirebase(res.data, data_order))
+
       })
     })
     .catch(err => {
@@ -215,25 +241,25 @@ export const getMechanicOnline = (mech_rows, data_order) => {
   }
 }
 
-export const fullFillFirebase = (mech_rows, data_order) => {
-  return (dispatch) => {
-    console.log(data_order);
-    firebase.database()
-    .ref(`order/orderID/mechanicId:${mech_rows.id}`)
-    .set({
-      order_id: data_order[0].order_id,
-      name: mech_rows.name
-    })
-    .then(() => {
-      firebase.database()
-      .ref(`order/orderID/status`)
-      .set('waiting to be accepted')
-      .then(() => {
-        dispatch(toReduxOrderMontir(data_order[0]))
-      })
-    })
-  }
-}
+// export const fullFillFirebase = (mech_rows, data_order) => {
+//   return (dispatch) => {
+//     console.log(data_order);
+//     firebase.database()
+//     .ref(`order/orderID/mechanicId:${mech_rows.id}`)
+//     .set({
+//       order_id: data_order[0].order_id,
+//       name: mech_rows.name
+//     })
+//     .then(() => {
+//       firebase.database()
+//       .ref(`order/orderID/status`)
+//       .set('waiting to be accepted')
+//       .then(() => {
+//         dispatch(toReduxOrderMontir(data_order[0]))
+//       })
+//     })
+//   }
+// }
 
 
 export const completeOrder = data => {
@@ -241,7 +267,11 @@ export const completeOrder = data => {
   return (dispatch) => {  
     axios.get(server_url+'/api/order/mechanic/'+data.mech_id)
     .then( results => {
-      console.log(results, 'ini hasil addOrder');
+      firebase.database()
+      .ref('mechanic_'+data.mech_id)
+      .update({
+        status: 'accepted'
+      })
       dispatch(completeOrderStatus(results.data))
     })
     .catch ( err => {

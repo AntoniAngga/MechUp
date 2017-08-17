@@ -10,9 +10,11 @@ import {
 } from 'native-base'
 import { Text, TouchableOpacity, View, Image } from 'react-native';
 import { Card, CardSection, Input, Button } from './common';
+import MyApp from './Maps'
+import { connect } from 'react-redux'
 const Petajakarta = require('../images/petajakarta.jpg')
 
-export default class ModalDetailMontir extends React.Component {
+class ModalDetailMontir extends React.Component {
 
   static navigationOptions = {
    title: 'Montir Information ',
@@ -38,17 +40,14 @@ export default class ModalDetailMontir extends React.Component {
           <Text style={{fontSize: 20, marginBottom: 10}}>Montir Information Detail!</Text>
           </CardSection>
           <CardSection>
-          <Text> Name :  Montir Name </Text>
+          <Text> Name :  {this.props.orderData.mech_name} </Text>
           </CardSection>
           <CardSection>
-          <Text> Phone :  Phone Number</Text>
+          <Text> Phone : {this.props.orderData.mech_phone_number}</Text>
           </CardSection>
-          <CardSection>
-          <Text> Montir Potition : Jarak ( km ) </Text>
-          </CardSection>
-          <CardSection style={{alignItems: 'center', height: 250}}>
-               <Image style={{ resizeMode:"contain", flex: 1 }} source={Petajakarta}></Image>
-          </CardSection>
+          <CardItem style={{alignItems: 'center', height: 350}}>
+            <MyApp />
+          </CardItem>
                <CardSection>
                     <Button onPress={() => navigate ('ModalSearchMontir')}>
                       Close
@@ -69,3 +68,17 @@ const styles = {
           color : 'red'
      }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    orderData: state.orderReducers.current_order
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModalDetailMontir)

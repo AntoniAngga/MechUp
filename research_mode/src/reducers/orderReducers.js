@@ -12,6 +12,8 @@ const orderReducers = (state=initialState, action) => {
         return {...state, data_order: action.payload.data_order}
     case 'UPDATE_TO_FINAL':
         return {...state, data_order: action.payload}
+    case 'SAVE_ORDER':
+      return {...state, current_order: action.payload}
     default:
     return state
   }

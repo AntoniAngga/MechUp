@@ -61,12 +61,14 @@ class MontirGetOrder extends Component {
      }
 
      onAccept () {
-        const { navigate } = this.props.navigation;
-        this.props.completeOrder(this.state.data_order);
-        firebase.database()
-        .ref(`order/orderID/status`)
-        .set('accepted')
-        navigate('MontirReport')
+       firebase.database()
+       .ref(`order/orderID/status`)
+       .set('accepted')
+       .then(() => {
+       this.props.completeOrder(this.state.data_order);
+       const { navigate } = this.props.navigation;
+          navigate('MontirReport')
+        })
      }
 
      render() {
