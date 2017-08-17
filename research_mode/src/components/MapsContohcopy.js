@@ -11,7 +11,8 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import MapView, { MAP_TYPES } from 'react-native-maps';
 import Polyline from '@mapbox/polyline';
-import _ from 'lodash'
+import firebase from '../config/FirebaseConfig'
+import {idLoggedMechanic, server_url} from '../actions'
 
 const { width, height } = Dimensions.get('window');
 
@@ -48,7 +49,8 @@ class MyApp extends React.Component {
         },
         key: '0'
       }],
-      coords: []
+      coords: [],
+      data_order: {}
     };
   }
   
@@ -74,35 +76,18 @@ class MyApp extends React.Component {
     }
   
   componentWillMount() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position.coords);
-        let tes = this.state.markers.shift()
-        // this.setState({markers: tes})
-        console.log(tes, 'setelah drop', this.state.markers);
-        this.state.markers.push({
-          coordinate: {
-            latitude: this.props.mapping.final.lat_mech,
-            longitude: this.props.mapping.final.long_mech
-          },
-          key: '0'
-        })
+    firebase.database().ref('mechanic_'+idLoggedMechanic[0].id_mechanic+'/order_id')
+    .once('value', snapshot => {
+      axios.get(server_url+'/api/order/'+snapshot._value)
+      .then(res => {
+          this.setState({data_order : res.data})
+          this.beforeDirection()
+          console.log(res)
+      })
+      .catch(err => {
+        console.log(err);
+      })
     })
-  }
-  
-  componentDidMount() {
-    console.log(this.props, 'ini props');
-    this.setState({
-      markers: [
-        ...this.state.markers,
-        {
-          coordinate: {
-            latitude: this.props.mapping.final.lat_cust,
-            longitude: this.props.mapping.final.long_cust
-          },
-          key: `${id++}`,
-        },
-      ],
-    });
   }
   
   componentWillReceiveProps() {
@@ -134,30 +119,7 @@ class MyApp extends React.Component {
   }
   
   beforeDirection() {
-    this.state.markers.shift()
-    // this.setState({markers: tes})
-    this.state.markers.push({
-      coordinate: {
-        latitude: this.props.mapping.final.lat_mech,
-        longitude: this.props.mapping.final.long_mech
-      },
-      key: '0'
-    })
-    
-    this.setState({
-      markers: [
-        ...this.state.markers,
-        {
-          coordinate: {
-            latitude: this.props.mapping.final.lat_cust,
-            longitude: this.props.mapping.final.long_cust
-          },
-          key: `${id++}`,
-        },
-      ],
-    },() => {
-      this.getDirectionsMaps(`${this.state.markers[1].coordinate.latitude},${this.state.markers[1].coordinate.longitude}`, `${this.state.markers[2].coordinate.latitude},${this.state.markers[2].coordinate.longitude}`)
-    });
+    this.getDirectionsMaps(`${this.state.data_order[0].lat_mech},${this.state.data_order[0].long_mech}`, `${this.state.data_order[0].lat_cust},${this.state.data_order[0].long_cust}`)
   }
   
   getDirectionsMaps(origin, destination) {  
@@ -165,9 +127,10 @@ class MyApp extends React.Component {
   }
 
   render() {
-    console.log(this.state.markers,'asdfgasdfgd');
+    console.log(this.state,'asdfgasdfgd');
     return (
-      <View style={styles.container}>
+    this.state.data_order !== {} ?
+    <View style={styles.container}>
         <TextInput 
         style={styles.inputs}
         placeholder="Type here to translate!"
@@ -178,30 +141,18 @@ class MyApp extends React.Component {
           ref={ref => { this.map = ref; }}
           mapType={MAP_TYPES.TERRAIN}
           style={styles.map}
-          initialRegion={this.state.region}
-          onRegionChange={region => this.onRegionChange(region)}
-          
-        >
-            { 
-              // (this.state.markers !== undefined) ? 
-              // return (
-              //   <MapView.Marker
-              //   title={this.state.markers}
-              //   key={this.state.markers[1].key || id}
-              //   coordinate={this.state.markers[1].coordinate || defaultLatlng}
-              //   draggable
-              // />
-              // 
-              // <MapView.Marker
-              //   title={this.state.markers[2].key || ''}
-              //   key={this.state.markers[2].key || id}
-              //   coordinate={this.state.markers[2].coordinate || defaultLatlng}
-              //   draggable
-              // />
-              // )
-              // : null        
-          }
-            
+          initialRegion={this.state.region}>
+
+          <MapView.Marker
+          coordinate={(this.props.data_order) ? {latitude: this.props.data_order[0].lat_cust, longitude: this.props.data_order[0].lat_mech} : {latitude: LATITUDE, longitude: LONGITUDE}}
+          draggable
+        />
+
+        <MapView.Marker
+          coordinate={(this.props.data_order) ? {latitude: this.props.data_order[0].lat_mech, longitude: this.props.data_order[0].long_mech} : {latitude: LATITUDE, longitude: LONGITUDE}}
+          draggable
+        />
+
           <MapView.Polyline 
               coordinates={this.state.coords}
               strokeWidth={2}
@@ -215,8 +166,8 @@ class MyApp extends React.Component {
             <Text style={styles.buttonText}>get direction</Text>
           </TouchableOpacity>
         </View>
-      </View>
-    );
+      </View> : null
+    ); 
   }
 }
 
@@ -265,19 +216,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    completeOrder: (input) => {
-      dispatch(completeOrder(input))
-    }
-  }
-}
+
 
 const mapStateToProps = (state) => {
-  console.log(state, 'ini state');
   return {
     mapping: state.orderReducers.data_order
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyApp)
+export default connect(mapStateToProps, null)(MyApp)

@@ -41,26 +41,22 @@ class MontirReport extends Component {
     }
 
      componentDidMount() {
-      axios.get(server_url+'/api/order/mechanic/'+idLoggedMechanic[0].id_mechanic)
-      .then( res => {
-        axios.get(server_url+'/api/order/'+res.data[0].id)
-        .then(result => {
-          this.setState({data_order : result.data[0]});
-          console.log(this.state.data_order)
+      firebase.database().ref('mechanic_'+idLoggedMechanic[0].id_mechanic+'/order_id')
+      .once('value', snapshot => {
+        axios.get(server_url+'/api/order/'+snapshot._value)
+        .then(res => {
+            this.setState({data_order : res.data})
         })
         .catch(err => {
-          console.log(err)
+          console.log(err);
         })
-      })
-      .catch(err => {
-        console.log(err)
       })
     }
 
     finish_data() {
       firebase.database()
       .ref('order').remove();
-      this.props.navigation.navigate("MontirOnline")
+      this.props.navigation.navigate("MainMontir")
     }
 
      render() {
@@ -70,16 +66,16 @@ class MontirReport extends Component {
                    <Card>
                        <List>
                         <ListItem itemDivider>
-                        <Text>Customer Name : {this.state.data_order.cust_name} </Text>
+                        <Text>Customer Name : {(this.state.data_order[0]) ? this.state.data_order[0].cust_name : ""} </Text>
                       </ListItem>
                       <ListItem itemDivider>
-                        <Text>Car Merk : {this.state.data_order.merek} </Text>
+                        <Text>Car Merk : {(this.state.data_order[0]) ? this.state.data_order[0].merek : ""} </Text>
                       </ListItem>
                       <ListItem itemDivider>
-                        <Text>Car Type : {this.state.data_order.type} </Text>
+                        <Text>Car Type : {(this.state.data_order[0]) ? this.state.data_order[0].type : ""} </Text>
                       </ListItem>
                       <ListItem itemDivider>
-                        <Text>Lokasi : {this.state.data_order.cust_address} </Text>
+                        <Text>Lokasi : {(this.state.data_order[0]) ? this.state.data_order[0].cust_address : ""} </Text>
                       </ListItem>
                       {/* <ListItem itemDivider>
                          <Text>Car Problem</Text>
@@ -89,11 +85,11 @@ class MontirReport extends Component {
                       </ListItem> */}
                      </List>
 
-                          <CardItem style={{alignItems: 'center', height: 180}}>
+                          <CardItem style={{alignItems: 'center', height: 330}}>
                             <MyApp2 />
                           </CardItem>
                      </Card>
-                         <Button block success onPress={this.finish_data()}>
+                         <Button block success onPress={() => this.finish_data()}>
                                <Text> Finish </Text>
                          </Button>
                   </Content>

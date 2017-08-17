@@ -143,7 +143,8 @@ class MontirGetOrder extends Component {
                          }>
                                <Text style={styles.TextStyle}> Accept </Text>
                          </Button>
-                         <Button block danger style={styles.DeclineOrder} onPress= {navigate('MontirOnline')} >
+                         <Button block danger style={styles.DeclineOrder} 
+                         onPress= {() => navigate('MontirOnline')} >
                               <Text style={styles.TextStyle}> Decline </Text>
                          </Button>
                   </Content>

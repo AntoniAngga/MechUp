@@ -17,6 +17,8 @@ const { width, height } = Dimensions.get('window');
 
 
 const ASPECT_RATIO = width / height;
+const LATITUDE2 = -6.26004;
+const LONGITUDE2 = 106.77899833333335;
 const LATITUDE = -6.26004;
 const LONGITUDE = 106.77899833333335;
 const LATITUDE_DELTA = 0.0102;
@@ -24,15 +26,21 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 let id = 1;
 
 
-class MyApp extends React.Component {
+class MontirMap extends React.Component {
   constructor(props) {
     super(props);
     
 
     this.state = {
       region: {
-        latitude: +this.props.mapping.final.lat_mech || LATITUDE,
-        longitude: +this.props.mapping.final.long_mech || LONGITUDE,
+        latitude: LATITUDE,
+        longitude:LONGITUDE,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      },
+      region2: {
+        latitude: LATITUDE2,
+        longitude: LONGITUDE2,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
@@ -62,32 +70,31 @@ class MyApp extends React.Component {
         }
     }
   
-  componentDidMount() {
-    let latitudeMech = +this.props.mapping.final.lat_mech
-    let latitudeCust = +this.props.mapping.final.lat_cust
-    let longitudeMech = +this.props.mapping.final.long_mech
-    let longitudeCust = +this.props.mapping.final.long_cust
-    this.state.markers.push({
-      coordinate: {
-      latitude: +latitudeMech,
-      longitude: +longitudeMech
-    },
-      key: null})
-    
+
+  componentDidMount () {
+    let originLatitude = this.props.orderData.lat_mech
+    let originLongitude = this.props.orderData.long_mech
+    let targetLatitude = this.props.orderData.lat_cust
+    let targetLongitude = this.props.orderData.long_cust
+    console.log(this.props, '----------------------mamama');
     this.setState({
-      markers: [
-        ...this.state.markers,
-        {
-          coordinate: {
-            latitude: +latitudeCust,
-            longitude: +longitudeCust
-          },
-          key: `${id++}`,
-        },
-      ],
-    });
-    // this.getDirectionsMaps(`${this.props.mapping.final1.lat_mech},${this.props.mapping.final1.long_mech}`, `${this.props.mapping.final1.lat_cust},${this.props.mapping.final1.long_cust}`)
-    console.log(this.state.markers, 'ini markers');
+      region2: {
+        latitude: +targetLatitude,
+        longitude: +targetLongitude,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      }
+    })
+    this.setState({
+      region: {
+        latitude: +originLatitude,
+        longitude: +originLongitude,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      }
+    })
+    this.getDirectionsMaps(`${this.props.orderData.lat_mech},${this.props.orderData.long_mech}`, `${this.props.orderData.lat_cust},${this.props.orderData.long_cust}`)    
+    
   }
   
   onMapPress(e) {
@@ -102,9 +109,29 @@ class MyApp extends React.Component {
     });
   }
 
-  componentWillReceiveProps() {
-    this.getDirectionsMaps(`${this.props.mapping.final1.lat_mech},${this.props.mapping.final1.long_mech}`, `${this.props.mapping.final1.lat_cust},${this.props.mapping.final1.long_cust}`)    
-  }
+  // componentWillReceiveProps() {
+  //   let originLatitude = this.props.orderData.lat_mech
+  //   let originLongitude = this.props.orderData.long_mech
+  //   let targetLatitude = this.props.orderData.lat_cust
+  //   let targetLongitude = this.props.orderData.long_cust
+
+  //   this.setState({
+  //     region: {
+  //       latitude: originLatitude,
+  //       longitude: originLongitude,
+  //       latitudeDelta: LATITUDE_DELTA,
+  //       longitudeDelta: LONGITUDE_DELTA,
+  //     }
+  //   })
+  //   this.setState({
+  //     region2: {
+  //       latitude: targetLatitude,
+  //       longitude: targetLongitude,
+  //       latitudeDelta: LATITUDE_DELTA,
+  //       longitudeDelta: LONGITUDE_DELTA,
+  //     }
+  //   })
+  // }
   
   async onSearch(query) {
    try {
@@ -145,6 +172,16 @@ class MyApp extends React.Component {
           style={styles.map}
           initialRegion={this.state.region}
         >
+
+        <MapView.Marker
+          coordinate={this.state.region}
+          draggable
+        />
+
+        <MapView.Marker
+          coordinate={this.state.region2}
+          draggable
+        />
        
         {/* <MapView.Marker
         coordinate={{
@@ -177,7 +214,7 @@ class MyApp extends React.Component {
   }
 }
 
-MyApp.propTypes = {
+MontirMap.propTypes = {
   provider: MapView.ProviderPropType,
 };
 
@@ -233,8 +270,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   console.log(state, 'ini state');
   return {
-    mapping: state.orderReducers.data_order
+    orderData: state.orderReducers.current_order
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyApp)
+export default connect(mapStateToProps, mapDispatchToProps)(MontirMap)

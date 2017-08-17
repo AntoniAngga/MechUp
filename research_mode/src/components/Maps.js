@@ -68,6 +68,15 @@ class MyApp extends React.Component {
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
+        console.log(position);
+        this.setState({
+          region : {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+          }
+        })
         let tes = this.state.markers.shift()
         this.state.markers.push({
           coordinate: {
@@ -135,7 +144,6 @@ class MyApp extends React.Component {
           mapType={MAP_TYPES.TERRAIN}
           style={styles.map}
           initialRegion={this.state.region}
-          onRegionChange={region => this.onRegionChange(region)}
           
         >
           {this.state.markers.map(marker => (

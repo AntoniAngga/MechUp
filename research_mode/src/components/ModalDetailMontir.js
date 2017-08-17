@@ -10,7 +10,7 @@ import {
 } from 'native-base'
 import { Text, TouchableOpacity, View, Image } from 'react-native';
 import { Card, CardSection, Input, Button } from './common';
-import MyApp from './Maps'
+import MyApp from './CostumerMap'
 import { connect } from 'react-redux'
 const Petajakarta = require('../images/petajakarta.jpg')
 
@@ -49,7 +49,7 @@ class ModalDetailMontir extends React.Component {
             <MyApp />
           </CardItem>
                <CardSection>
-                    <Button onPress={() => navigate ('ModalSearchMontir')}>
+                    <Button onPress={() => navigate ('MainMontir')}>
                       Close
                     </Button>
                </CardSection>
